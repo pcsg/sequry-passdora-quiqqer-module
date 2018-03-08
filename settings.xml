@@ -8,6 +8,18 @@
                     <defaultvalue>0</defaultvalue>
                 </conf>
             </section>
+
+            <section name="backup">
+                <conf name="interval">
+                    <type><![CDATA[number]]></type>
+                    <defaultvalue>12</defaultvalue>
+                </conf>
+
+                <conf name="last_backup">
+                    <type><![CDATA[number]]></type>
+                    <defaultvalue>0</defaultvalue>
+                </conf>
+            </section>
         </config>
 
         <window>
@@ -33,6 +45,29 @@
                             </text>
                             <description>
                                 <locale group="sequry/passdora" var="settings.general.to_do.description"/>
+                            </description>
+                        </input>
+                    </settings>
+                </category>
+
+                <category name="backup">
+                    <text>
+                        <locale group="sequry/passdora" var="settings.category.backup.title"/>
+                    </text>
+                    <icon>fa fa-hdd-o</icon>
+
+                    <settings title="backup" name="settings.backup">
+
+                        <title>
+                            <locale group="sequry/passdora" var="settings.backup.title"/>
+                        </title>
+
+                        <input conf="backup.interval" type="number">
+                            <text>
+                                <locale group="sequry/passdora" var="settings.backup.interval.text"/>
+                            </text>
+                            <description>
+                                <locale group="sequry/passdora" var="settings.backup.interval.description"/>
                             </description>
                         </input>
                     </settings>
