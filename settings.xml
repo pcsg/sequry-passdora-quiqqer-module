@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiqqer>
+    <settings>
+        <config>
+            <section name="general">
+                <conf name="is_activated">
+                    <type><![CDATA[boolean]]></type>
+                    <defaultvalue>0</defaultvalue>
+                </conf>
+            </section>
+        </config>
+
+        <window>
+            <params>
+                <icon>fa fa-archive</icon>
+            </params>
+            <categories>
+                <category name="general">
+                    <text>
+                        <locale group="sequry/passdora" var="settings.category.general.title"/>
+                    </text>
+                    <icon>fa fa-archive</icon>
+
+                    <settings title="general" name="settings.general">
+
+                        <title>
+                            <locale group="sequry/passdora" var="settings.general.title"/>
+                        </title>
+
+                        <input conf="to_do" type="number">
+                            <text>
+                                <locale group="sequry/passdora" var="settings.general.to_do.text"/>
+                            </text>
+                            <description>
+                                <locale group="sequry/passdora" var="settings.general.to_do.description"/>
+                            </description>
+                        </input>
+                    </settings>
+                </category>
+            </categories>
+        </window>
+    </settings>
+</quiqqer>
