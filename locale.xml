@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<locales>
+  <groups name="sequry/passdora" datatype="php,js">
+    <locale name="package.title">
+      <de><![CDATA[Passdora QUIQQER Modul]]></de>
+      <en><![CDATA[Passdora QUIQQER module]]></en>
+    </locale>
+  <locale name="package.description"><de><![CDATA[Passdora QUIQQER Modul]]></de><en><![CDATA[Passdora QUIQQER module]]></en></locale></groups>
+</locales>
