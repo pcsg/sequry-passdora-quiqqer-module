@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+    <item parent="/extras/"
+          name="passdora"
+          icon="fa fa-undo"
+          require="package/sequry/passdora/bin/js/controls/RestoreDialog"
+    >
+        <locale group="quiqqer/calendar" var="menu.apps.passdora.title"/>
+    </item>
+</menu>

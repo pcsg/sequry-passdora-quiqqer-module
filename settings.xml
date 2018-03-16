@@ -20,6 +20,13 @@
                     <defaultvalue>0</defaultvalue>
                 </conf>
             </section>
+
+            <section name="restore">
+                <conf name="is_requested">
+                    <type><![CDATA[boolean]]></type>
+                    <defaultvalue>0</defaultvalue>
+                </conf>
+            </section>
         </config>
 
         <window>
