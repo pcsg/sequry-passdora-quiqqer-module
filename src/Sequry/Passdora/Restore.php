@@ -145,6 +145,8 @@ class Restore
      */
     public static function setRequested()
     {
-        QUI::getPackage('sequry/passdora')->getConfig()->set('restore', 'is_requested', 1);
+        $Config = QUI::getPackage('sequry/passdora')->getConfig();
+        $Config->set('restore', 'is_requested', 1);
+        $Config->save();
     }
 }
