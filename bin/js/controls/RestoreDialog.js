@@ -44,6 +44,12 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
 
         Form: UploadForm,
 
+        // How many blocks (separated by something e.g. "-") make up the whole restore key?
+        restoreKeyBlocks: 5,
+
+        // How many characters are in one block?
+        restoreKeyBlockLength: 5,
+
         initialize: function (options) {
             this.parent(options);
 
@@ -86,16 +92,22 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
 
             UploadFormContainer.setStyle('height', height);
 
-            // When an input field is full, focus the next one
+            this.restoreKeyBlocks = this.getRestoreInputs().length;
+
             this.forEachRestoreInput(function (Input, index, isLast) {
+
+                Input.setAttribute('maxlength', self.restoreKeyBlockLength);
+
+                // When an input field is full, focus the next one
                 if (!isLast) {
                     Input.addEventListener('input', function () {
-                        if (Input.value.length === 5) {
+                        if (Input.value.length === self.restoreKeyBlockLength) {
                             Input.getNext(Input.tagName).select();
                         }
                     });
                 }
 
+                // If something is pasted to the first input field, split the content up and fill all the other inputs
                 if (index === 0) {
                     Input.addEventListener('paste', function (event) {
                         var restoreKeyBlocks = event.clipboardData.getData("Text").split('-');
