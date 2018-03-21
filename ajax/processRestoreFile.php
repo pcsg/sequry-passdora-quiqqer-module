@@ -28,6 +28,8 @@ QUI::$Ajax->registerFunction(
 
         Restore::cleanupDirectory();
 
+        Restore::setRequested();
+
         return array(
             "error"   => false,
             "message" => ""
