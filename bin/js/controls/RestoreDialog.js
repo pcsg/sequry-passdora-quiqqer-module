@@ -90,7 +90,7 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
                 if (!isLast) {
                     Input.addEventListener('input', function () {
                         if (Input.value.length === 5) {
-                            Input.getNext(Input.tagName).focus();
+                            Input.getNext(Input.tagName).select();
                         }
                     });
                 }
