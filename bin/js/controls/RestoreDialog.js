@@ -61,6 +61,7 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
 
 
         onOpen: function (Win) {
+            var self = this;
             var Content = Win.getContent();
             this.Form = new UploadForm({
                 maxuploads: 1
@@ -92,6 +93,15 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
                         if (Input.value.length === 5) {
                             Input.getNext(Input.tagName).select();
                         }
+                    });
+                }
+
+                if (index === 0) {
+                    Input.addEventListener('paste', function (event) {
+                        var restoreKeyBlocks = event.clipboardData.getData("Text").split('-');
+                        self.forEachRestoreInput(function (Input, index) {
+                            Input.value = restoreKeyBlocks[index];
+                        });
                     });
                 }
             });
