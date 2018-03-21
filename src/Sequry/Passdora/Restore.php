@@ -134,8 +134,6 @@ class Restore
      */
     public static function removeDirectory()
     {
-        QUI\System\Log::write("bananananana");
-        QUI\System\Log::write(self::DIRECTORY);
         File::unlink(self::DIRECTORY);
     }
 
