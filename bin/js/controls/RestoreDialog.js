@@ -84,6 +84,17 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
             height += this.Form.getElm().getElementsByClassName('controls-upload-buttons')[0].getHeight();
 
             UploadFormContainer.setStyle('height', height);
+
+            // When an input field is full, focus the next one
+            this.forEachRestoreInput(function (Input, index, isLast) {
+                if (!isLast) {
+                    Input.addEventListener('input', function () {
+                        if (Input.value.length === 5) {
+                            Input.getNext(Input.tagName).focus();
+                        }
+                    });
+                }
+            });
         },
 
 
