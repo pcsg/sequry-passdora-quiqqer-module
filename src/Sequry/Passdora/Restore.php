@@ -100,22 +100,6 @@ class Restore
 
 
     /**
-     * Unpacks the decrypted restore archive.
-     * Returns true on success, otherwise false.
-     *
-     * @return boolean
-     */
-    public static function unpackFile()
-    {
-        $file = self::DIRECTORY.self::FILE_DECRYPTED;
-        $directory = self::DIRECTORY;
-        exec("tar -xvzf $file -C $directory", $output,$returnCode);
-
-        return $returnCode == 0;
-    }
-
-
-    /**
      * Cleans up the restore directory (e.g. removing unnecessary files as the un- and encrypted archives)
      *
      * @throws QUI\Exception

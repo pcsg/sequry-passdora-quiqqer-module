@@ -19,15 +19,6 @@ QUI::$Ajax->registerFunction(
             );
         }
 
-        if (!Restore::unpackFile()) {
-            return array(
-                "error"   => true,
-                "message" => QUI::getLocale()->get('sequry/passdora', 'error.restore.unpack')
-            );
-        }
-
-        Restore::cleanupDirectory();
-
         Restore::setRequested();
 
         return array(
