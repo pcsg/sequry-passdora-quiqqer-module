@@ -112,7 +112,9 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
                     Input.addEventListener('paste', function (event) {
                         var restoreKeyBlocks = event.clipboardData.getData("Text").split('-');
                         self.forEachRestoreInput(function (Input, index) {
-                            Input.value = restoreKeyBlocks[index];
+                            if (typeof restoreKeyBlocks[index] !== "undefined") {
+                                Input.value = restoreKeyBlocks[index];
+                            }
                         });
                     });
                 }
