@@ -107,10 +107,18 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
                     });
                 }
 
-                // If something is pasted to the first input field, split the content up and fill all the other inputs
+                // If something is pasted to the first input field, fill all the inputs with the pasted content
                 if (index === 0) {
                     Input.addEventListener('paste', function (event) {
-                        var restoreKeyBlocks = event.clipboardData.getData("Text").split('-');
+                        // Remove dashes from the pasted text
+                        var restoreKey = event.clipboardData.getData("Text").replace(/-/g, '');
+
+                        // Explode the string to blocks with the length of a restore key block
+                        var restoreKeyBlocks = restoreKey.match(
+                            new RegExp('.{1,' + self.restoreKeyBlockLength + '}', 'g')
+                        );
+
+                        // Fill the input fields
                         self.forEachRestoreInput(function (Input, index) {
                             if (typeof restoreKeyBlocks[index] !== "undefined") {
                                 Input.value = restoreKeyBlocks[index];
