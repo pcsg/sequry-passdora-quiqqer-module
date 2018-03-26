@@ -1,24 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <locales>
-  <groups name="sequry/passdora" datatype="php,js">
-    <locale name="package.title">
-      <de><![CDATA[Passdora QUIQQER Modul]]></de>
-      <en><![CDATA[Passdora QUIQQER module]]></en>
-    </locale>
-    <locale name="package.description">
-      <de><![CDATA[Passdora QUIQQER Modul]]></de>
-      <en><![CDATA[Passdora QUIQQER module]]></en>
-    </locale>
-  </groups>
+    <groups name="sequry/passdora" datatype="php,js">
+        <locale name="package.title">
+            <de><![CDATA[Passdora QUIQQER Modul]]></de>
+            <en><![CDATA[Passdora QUIQQER module]]></en>
+        </locale>
+        <locale name="package.description">
+            <de><![CDATA[Passdora QUIQQER Modul]]></de>
+            <en><![CDATA[Passdora QUIQQER module]]></en>
+        </locale>
+    </groups>
 
-  <groups name="sequry/passdora" datatype="php">
-    <locale name="menu.apps.passdora.title">
-      <de>Passdora</de>
-      <en>Passdora</en>
-    </locale>
-    <locale name="menu.apps.passdora.restore.title">
-      <de>Wiederherstellen</de>
-      <en>Restore</en>
-    </locale>
-  </groups>
+    <groups name="sequry/passdora" datatype="php">
+        <locale name="menu.apps.passdora.title">
+            <de>Passdora</de>
+            <en>Passdora</en>
+        </locale>
+        <locale name="menu.apps.passdora.restore.title">
+            <de>System-Wiederherstellung</de>
+            <en>System-Restore</en>
+        </locale>
+    </groups>
+
+    <groups name="sequry/passdora" datatype="js">
+        <locale name="restore.panel.title">
+            <de>System-Wiederherstellung</de>
+            <en>System-Restore</en>
+        </locale>
+
+        <locale name="restore.panel.file.title">
+            <de>Backup-Datei</de>
+            <en>Backup-File</en>
+        </locale>
+
+        <locale name="restore.panel.key.title">
+            <de>Restore-Key</de>
+            <en>Restore-Key</en>
+        </locale>
+    </groups>
 </locales>
