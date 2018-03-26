@@ -248,7 +248,8 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
                 function (result) {
                     self.Loader.hide();
                     if (result.error === false) {
-                        self.showNextStep();
+                        // calling showNextStep here would cause an infinite loop
+                        self.showStep(self.activeStep + 1);
                     } else {
                         self.getButton('previous').enable();
                         QUI.getMessageHandler().then(function (MH) {
