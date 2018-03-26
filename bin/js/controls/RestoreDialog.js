@@ -118,6 +118,10 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
                         restoreKey: {
                             title      : QUILocale.get(lg, 'restore.panel.key.title'),
                             description: QUILocale.get(lg, 'restore.panel.key.description')
+                        },
+                        finish: {
+                            title      : QUILocale.get(lg, 'restore.panel.finish.title'),
+                            description: QUILocale.get(lg, 'restore.panel.finish.description')
                         }
                     }
                 })
@@ -207,6 +211,7 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
          * Submits the form.
          */
         submit: function () {
+            this.getButton('previous').disable();
             this.Loader.show();
             this.Form.submit();
         },
@@ -243,8 +248,9 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
                 function (result) {
                     self.Loader.hide();
                     if (result.error === false) {
-                        self.close();
+                        self.showNextStep();
                     } else {
+                        self.getButton('previous').enable();
                         QUI.getMessageHandler().then(function (MH) {
                             MH.addError(
                                 result.message,
@@ -347,7 +353,7 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
             steps[this.activeStep].style.display = 'none';
             steps[index].style.display = 'block';
 
-            if (index === steps.length - 1) {
+            if (steps[index].id === "restore-key") {
                 NextButton.setAttributes({
                     textimage: 'fa fa-paper-plane',
                     text     : QUILocale.get(lg, 'restore.panel.button.submit')
@@ -377,13 +383,13 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
          * @return boolean - Was the next step shown?
          */
         showNextStep: function () {
-            if (this.activeStep < this.getSteps().length - 1) {
-                this.showStep(this.activeStep + 1);
+            if (this.getSteps()[this.activeStep].id === "restore-key") {
+                this.submit();
                 return true;
             }
 
-            if (this.activeStep === this.getSteps().length - 1) {
-                this.submit();
+            if (this.activeStep < this.getSteps().length - 1) {
+                this.showStep(this.activeStep + 1);
                 return true;
             }
 

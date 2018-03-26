@@ -51,6 +51,15 @@
             <en>Please enter the restore-key you copied when setting up your Passdora-system for the first time:</en>
         </locale>
 
+        <locale name="restore.panel.finish.title">
+            <de>System-Wiederherstellung erfolgreich initialisiert!</de>
+            <en>System-Restore successfully initialized!</en>
+        </locale>
+        <locale name="restore.panel.finish.description">
+            <de>Bitte starten Sie Ihre Passdora-Box neu um die System-Wiederherstellung abzuschließen.</de>
+            <en>Please restart your Passdora-box to complete the system-restore.</en>
+        </locale>
+
         <locale name="restore.panel.button.previous">
             <de>Zurück</de>
             <en>Previous</en>

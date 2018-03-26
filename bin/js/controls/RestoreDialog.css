@@ -16,6 +16,10 @@
 }
 
 
+#restore-dialog .step:first-of-type {
+    display: block;
+}
+
 .restore-dialog-description {
     margin-bottom: 5px;
 }
