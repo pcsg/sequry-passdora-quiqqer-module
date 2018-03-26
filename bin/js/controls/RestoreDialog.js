@@ -142,13 +142,20 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
                 Input.setAttribute('maxlength', self.restoreKeyBlockLength);
 
                 Input.addEventListener('input', function () {
+                    var restoreKeyLength = self.restoreKeyBlockLength * self.restoreKeyBlocks;
+
+                    // Add the amount of spacing dashes
+                    restoreKeyLength += self.restoreKeyBlocks - 1;
+
                     // When an input field is full...
                     if (Input.value.length === self.restoreKeyBlockLength) {
                         if (!isLast) {
                             // ...focus the next one
                             Input.getNext(Input.tagName).select();
-                        } else {
-                            // ...if it was the last input enable the next-Button
+                        }
+
+                        // If the given input is as long as a restore key enable the next-button
+                        if (self.getRestoreKeyFromInputs().length === restoreKeyLength) {
                             self.getButton('next').enable();
                         }
                     } else {
