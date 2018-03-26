@@ -56,7 +56,7 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
             this.setAttributes({
                 'icon'     : 'fa fa-undo',
                 'autoclose': false,
-                'maxHeight': 400
+                'maxHeight': 510
             });
 
             this.addEvents({
