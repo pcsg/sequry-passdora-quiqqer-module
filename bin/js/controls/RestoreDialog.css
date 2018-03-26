@@ -1,6 +1,14 @@
+#upload-form {
+    height: 215px;
+}
+
+#restore-dialog {
+    text-align: center;
+}
+
 #restore-key {
     text-align: center;
-    margin: 20px 0;
+    margin: 30px 0;
 }
 
 #restore-key.disabled {

@@ -38,7 +38,7 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
         ],
 
         options: {
-            title: QUILocale.get(lg, 'panel.title'),
+            title: QUILocale.get(lg, 'restore.panel.title'),
             icon : 'fa fa-undo'
         },
 
@@ -74,7 +74,12 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
             });
 
             Content.set({
-                html: Mustache.render(template)
+                html: Mustache.render(template, {
+                    locale: {
+                        uploadFormHeader: QUILocale.get(lg, 'restore.panel.file.title'),
+                        restoreKeyHeader: QUILocale.get(lg, 'restore.panel.key.title')
+                    }
+                })
             });
 
             var UploadFormContainer = Content.getElementById('upload-form');
@@ -86,11 +91,6 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
             });
 
             this.Form.inject(UploadFormContainer);
-
-            var height = this.Form.getElm().getHeight();
-            height += this.Form.getElm().getElementsByClassName('controls-upload-buttons')[0].getHeight();
-
-            UploadFormContainer.setStyle('height', height);
 
             this.restoreKeyBlocks = this.getRestoreInputs().length;
 
@@ -147,7 +147,6 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
                 'package_sequry_passdora_ajax_processRestoreFile',
                 function (result) {
                     this.enable();
-                    console.log(result);
                     if (result.error === false) {
                         this.close();
                     }
