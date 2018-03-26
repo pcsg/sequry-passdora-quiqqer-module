@@ -365,8 +365,6 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
                 });
             }
 
-            NextButton.disable();
-
             if (index === 0) {
                 PreviousButton.disable();
             } else {
@@ -383,6 +381,9 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
          * @return boolean - Was the next step shown?
          */
         showNextStep: function () {
+            this.getButton('next').disable();
+            this.getButton('previous').enable();
+
             if (this.getSteps()[this.activeStep].id === "restore-key") {
                 this.submit();
                 return true;
@@ -403,6 +404,9 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
          * @return boolean - Was the previous step shown?
          */
         showPreviousStep: function () {
+            this.getButton('next').enable();
+            this.getButton('previous').disable();
+
             if (this.activeStep > 0) {
                 this.showStep(this.activeStep - 1);
                 return true;
