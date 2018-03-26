@@ -56,7 +56,7 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
             this.setAttributes({
                 'icon'     : 'fa fa-undo',
                 'autoclose': false,
-                'maxHeight': 510
+                'maxHeight': 550
             });
 
             this.addEvents({
@@ -76,8 +76,14 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
             Content.set({
                 html: Mustache.render(template, {
                     locale: {
-                        uploadFormHeader: QUILocale.get(lg, 'restore.panel.file.title'),
-                        restoreKeyHeader: QUILocale.get(lg, 'restore.panel.key.title')
+                        uploadForm: {
+                            title      : QUILocale.get(lg, 'restore.panel.file.title'),
+                            description: QUILocale.get(lg, 'restore.panel.file.description')
+                        },
+                        restoreKey: {
+                            title      : QUILocale.get(lg, 'restore.panel.key.title'),
+                            description: QUILocale.get(lg, 'restore.panel.key.description')
+                        }
                     }
                 })
             });

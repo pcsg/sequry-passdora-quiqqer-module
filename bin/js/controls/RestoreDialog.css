@@ -1,9 +1,19 @@
 #upload-form {
-    height: 215px;
+    height: 235px;
 }
 
 #restore-dialog {
     text-align: center;
+}
+
+
+.restore-dialog-description {
+    margin-bottom: 5px;
+}
+
+
+.restore-dialog-title {
+    margin-bottom: 7px;
 }
 
 #restore-key {

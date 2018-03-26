@@ -32,10 +32,18 @@
             <de>Backup-Datei</de>
             <en>Backup-File</en>
         </locale>
+        <locale name="restore.panel.file.description">
+            <de>Bitte wählen Sie eine Backup-Datei aus, die genutzt werden soll um das System wiederherzustellen:</de>
+            <en>Please select a backup file which should be used to restore the system:</en>
+        </locale>
 
         <locale name="restore.panel.key.title">
             <de>Restore-Key</de>
             <en>Restore-Key</en>
+        </locale>
+        <locale name="restore.panel.key.description">
+            <de>Bitten geben Sie den Restore-Schlüssel ein, den Sie bei der Ersteinrichtung Ihres Passdora-Systems erhalten haben:</de>
+            <en>Please enter the restore-key you copied when setting up your Passdora-system for the first time:</en>
         </locale>
     </groups>
 </locales>
