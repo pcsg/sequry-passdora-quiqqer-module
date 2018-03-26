@@ -5,5 +5,20 @@
       <de><![CDATA[Passdora QUIQQER Modul]]></de>
       <en><![CDATA[Passdora QUIQQER module]]></en>
     </locale>
-  <locale name="package.description"><de><![CDATA[Passdora QUIQQER Modul]]></de><en><![CDATA[Passdora QUIQQER module]]></en></locale></groups>
+    <locale name="package.description">
+      <de><![CDATA[Passdora QUIQQER Modul]]></de>
+      <en><![CDATA[Passdora QUIQQER module]]></en>
+    </locale>
+  </groups>
+
+  <groups name="sequry/passdora" datatype="php">
+    <locale name="menu.apps.passdora.title">
+      <de>Passdora</de>
+      <en>Passdora</en>
+    </locale>
+    <locale name="menu.apps.passdora.restore.title">
+      <de>Wiederherstellen</de>
+      <en>Restore</en>
+    </locale>
+  </groups>
 </locales>

@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <menu>
-    <item parent="/extras/"
+    <item parent="/apps/"
           name="passdora"
+          icon="fa fa-lock"
+    >
+        <locale group="sequry/passdora" var="menu.apps.passdora.title"/>
+    </item>
+
+    <item parent="/apps/passdora/"
+          name="restore"
           icon="fa fa-undo"
           require="package/sequry/passdora/bin/js/controls/RestoreDialog"
     >
-        <locale group="quiqqer/calendar" var="menu.apps.passdora.title"/>
+        <locale group="sequry/passdora" var="menu.apps.passdora.restore.title"/>
     </item>
 </menu>
