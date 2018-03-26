@@ -13,6 +13,7 @@
 
 #restore-dialog .step {
     display: none;
+    flex-grow: 1;
 }
 
 
@@ -45,4 +46,14 @@
 .restore-key-separator {
     margin: 0 10px;
     font-size: 2.25rem;
+}
+
+
+.step-indicator {
+    color: lightgrey;
+    margin: 0 2px;
+}
+
+.step-indicator.active {
+    color: grey;
 }

@@ -347,11 +347,16 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
          */
         showStep: function (index) {
             var steps = this.getSteps();
+            var stepIndicators = this.getStepIndicators();
+
             var NextButton = this.getButton('next');
             var PreviousButton = this.getButton('previous');
 
             steps[this.activeStep].style.display = 'none';
             steps[index].style.display = 'block';
+
+            stepIndicators[this.activeStep].removeClass('active');
+            stepIndicators[index].addClass('active');
 
             if (steps[index].id === "restore-key") {
                 NextButton.setAttributes({
@@ -422,6 +427,16 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
          */
         getSteps: function () {
             return this.getElm().getElementsByClassName('step');
+        },
+
+
+        /**
+         * Returns all step-indicator-elements
+         *
+         * @return {NodeListOf<Element> | HTMLCollectionOf<Element> | *}
+         */
+        getStepIndicators: function () {
+            return this.getElm().getElementsByClassName('step-indicator');
         }
     });
 });
