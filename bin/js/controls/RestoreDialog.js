@@ -176,16 +176,24 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
 
 
         onUploadComplete: function () {
+            var self = this;
             QUIAjax.post(
                 'package_sequry_passdora_ajax_processRestoreFile',
                 function (result) {
-                    this.enable();
+                    self.enable();
                     if (result.error === false) {
-                        this.close();
+                        self.close();
+                    } else {
+                        QUI.getMessageHandler().then(function (MH) {
+                            MH.addError(
+                                result.message,
+                                self.getButton('next').getElm()
+                            );
+                        });
                     }
-                }.bind(this), {
+                }, {
                     'package'   : 'sequry/passdora',
-                    'restoreKey': this.getRestoreKeyFromInputs()
+                    'restoreKey': self.getRestoreKeyFromInputs()
                 }
             );
         },

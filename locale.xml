@@ -20,6 +20,11 @@
             <de>System-Wiederherstellung</de>
             <en>System-Restore</en>
         </locale>
+
+        <locale name="error.restore.decrypt">
+            <de>Fehler beim Entschlüsseln der Backup-Datei: Ungültige Backup-Datei oder Restore-Key.</de>
+            <en>Error decrypting the backup-file: Invalid backup-file or restore-key.</en>
+        </locale>
     </groups>
 
     <groups name="sequry/passdora" datatype="js">
