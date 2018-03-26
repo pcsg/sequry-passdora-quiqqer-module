@@ -8,7 +8,8 @@
 define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
 
     'qui/QUI',
-    'qui/controls/windows/Confirm',
+    'qui/controls/windows/Popup',
+    'qui/controls/buttons/Button',
     'controls/upload/Form',
     'Ajax',
     'Locale',
@@ -16,17 +17,18 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
     'text!package/sequry/passdora/bin/js/controls/RestoreDialog.html',
     'css!package/sequry/passdora/bin/js/controls/RestoreDialog.css'
 
-], function (QUI, QUIConfirm, UploadForm, QUIAjax, QUILocale, Mustache, template) {
+], function (QUI, QUIPopup, QUIButton, UploadForm, QUIAjax, QUILocale, Mustache, template) {
     "use strict";
 
     var lg = 'sequry/passdora';
 
     return new Class({
-        Extends: QUIConfirm,
+        Extends: QUIPopup,
         Type   : 'package/sequry/passdora/bin/js/controls/RestoreDialog',
 
         Binds: [
             'onOpen',
+            'onClose',
             'validateUpload',
             'onUploadComplete',
             'onSubmit',
@@ -34,7 +36,10 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
             'enable',
             'getRestoreInputs',
             'forEachRestoreInput',
-            'getRestoreKeyFromInputs'
+            'getRestoreKeyFromInputs',
+            'showStep',
+            'showPreviousStep',
+            'showNextStep'
         ],
 
         options: {
@@ -50,18 +55,21 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
         // How many characters are in one block?
         restoreKeyBlockLength: 5,
 
+        // The currently active step
+        activeStep: 0,
+
         initialize: function (options) {
             this.parent(options);
 
             this.setAttributes({
                 'icon'     : 'fa fa-undo',
                 'autoclose': false,
-                'maxHeight': 550
+                'maxHeight': 400
             });
 
             this.addEvents({
                 onOpen: this.onOpen,
-                submit: this.onSubmit
+                onClose: this.onClose
             });
         },
 
@@ -69,6 +77,24 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
         onOpen: function (Win) {
             var self = this;
             var Content = Win.getContent();
+
+            var NextButton = new QUIButton({
+                name     : 'next',
+                textimage: 'fa fa-chevron-right',
+                text     : QUILocale.get(lg, 'restore.panel.button.next')
+            }).addEvent('click', this.showNextStep);
+
+            var PreviousButton = new QUIButton({
+                name     : 'previous',
+                textimage: 'fa fa-chevron-left',
+                text     : QUILocale.get(lg, 'restore.panel.button.previous')
+            }).addEvent('click', this.showPreviousStep);
+
+            PreviousButton.disable();
+
+            this.addButton(NextButton);
+            this.addButton(PreviousButton);
+
             this.Form = new UploadForm({
                 maxuploads: 1
             });
@@ -136,12 +162,13 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
         },
 
 
-        validateUpload: function () {
-
+        onClose: function() {
+            // Destroy the form to reset all variables and controls
+            this.destroy();
         },
 
 
-        onSubmit: function () {
+        submit: function () {
             this.disable();
 
             this.Form.submit();
@@ -235,6 +262,82 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
                 var isLast = (i === restoreInputs.length - 1);
                 func(restoreInputs[i], i, isLast);
             }
+        },
+
+
+        /**
+         * Shows the step with the given index
+         *
+         * @param index
+         */
+        showStep: function (index) {
+            var steps = this.getSteps();
+            var NextButton = this.getButton('next');
+            var PreviousButton = this.getButton('previous');
+
+            steps[this.activeStep].style.display = 'none';
+            steps[index].style.display = 'block';
+
+            if (index === steps.length - 1) {
+                NextButton.setAttributes({
+                    textimage: 'fa fa-paper-plane',
+                    text     : QUILocale.get(lg, 'restore.panel.button.submit')
+                });
+            } else {
+                NextButton.setAttributes({
+                    textimage: 'fa fa-chevron-right',
+                    text     : QUILocale.get(lg, 'restore.panel.button.next')
+                });
+            }
+
+
+            if (index === 0) {
+                PreviousButton.disable();
+            } else {
+                PreviousButton.enable();
+            }
+
+            this.activeStep = index;
+        },
+
+
+        /**
+         * Shows the next step
+         */
+        showNextStep: function () {
+            if (this.activeStep < this.getSteps().length - 1) {
+                this.showStep(this.activeStep + 1);
+                return true;
+            }
+
+            if (this.activeStep === this.getSteps().length - 1) {
+                this.submit();
+                return true;
+            }
+
+            return false;
+        },
+
+
+        /**
+         * Shows the previous step
+         */
+        showPreviousStep: function () {
+            if (this.activeStep > 0) {
+                this.showStep(this.activeStep - 1);
+                return true;
+            }
+            return false;
+        },
+
+
+        /**
+         * Returns all step elements
+         *
+         * @return {HTMLCollectionOf<Element>}
+         */
+        getSteps: function () {
+            return this.getElm().getElementsByClassName('step');
         }
     });
 });

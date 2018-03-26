@@ -7,6 +7,11 @@
 }
 
 
+#restore-dialog .step {
+    display: none;
+}
+
+
 .restore-dialog-description {
     margin-bottom: 5px;
 }

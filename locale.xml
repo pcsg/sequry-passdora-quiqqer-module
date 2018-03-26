@@ -45,5 +45,18 @@
             <de>Bitten geben Sie den Restore-Schlüssel ein, den Sie bei der Ersteinrichtung Ihres Passdora-Systems erhalten haben:</de>
             <en>Please enter the restore-key you copied when setting up your Passdora-system for the first time:</en>
         </locale>
+
+        <locale name="restore.panel.button.previous">
+            <de>Zurück</de>
+            <en>Previous</en>
+        </locale>
+        <locale name="restore.panel.button.next">
+            <de>Weiter</de>
+            <en>Next</en>
+        </locale>
+        <locale name="restore.panel.button.submit">
+            <de>Absenden</de>
+            <en>Submit</en>
+        </locale>
     </groups>
 </locales>
