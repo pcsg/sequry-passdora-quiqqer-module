@@ -207,7 +207,7 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
          * Submits the form.
          */
         submit: function () {
-            this.disable();
+            this.Loader.show();
             this.Form.submit();
         },
 
@@ -241,7 +241,7 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
             QUIAjax.post(
                 'package_sequry_passdora_ajax_processRestoreFile',
                 function (result) {
-                    self.enable();
+                    self.Loader.hide();
                     if (result.error === false) {
                         self.close();
                     } else {
