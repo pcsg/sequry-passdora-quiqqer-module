@@ -4,6 +4,10 @@
 
 #restore-dialog {
     text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
 }
 
 
@@ -23,7 +27,6 @@
 
 #restore-key {
     text-align: center;
-    margin: 30px 0;
 }
 
 #restore-key.disabled {

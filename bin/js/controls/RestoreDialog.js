@@ -30,6 +30,8 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
             'onOpen',
             'onClose',
             'validateUpload',
+            'onUploadFileAdded',
+            'onUploadFileRemoved',
             'onUploadComplete',
             'onSubmit',
             'disable',
@@ -68,12 +70,18 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
             });
 
             this.addEvents({
-                onOpen: this.onOpen,
+                onOpen : this.onOpen,
                 onClose: this.onClose
             });
         },
 
 
+        /**
+         * Fired when the dialog is opened.
+         * Constructs all the controls and elements.
+         *
+         * @param Win
+         */
         onOpen: function (Win) {
             var self = this;
             var Content = Win.getContent();
@@ -91,6 +99,7 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
             }).addEvent('click', this.showPreviousStep);
 
             PreviousButton.disable();
+            NextButton.disable();
 
             this.addButton(NextButton);
             this.addButton(PreviousButton);
@@ -119,7 +128,9 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
             this.Form.setParam('onfinish', 'package_sequry_passdora_ajax_upload');
 
             this.Form.addEvents({
-                onComplete: this.onUploadComplete
+                onComplete    : this.onUploadComplete,
+                onAdd         : this.onUploadFileAdded,
+                onInputDestroy: this.onUploadFileRemoved
             });
 
             this.Form.inject(UploadFormContainer);
@@ -130,20 +141,33 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
 
                 Input.setAttribute('maxlength', self.restoreKeyBlockLength);
 
-                // When an input field is full, focus the next one
-                if (!isLast) {
-                    Input.addEventListener('input', function () {
-                        if (Input.value.length === self.restoreKeyBlockLength) {
+                Input.addEventListener('input', function () {
+                    // When an input field is full...
+                    if (Input.value.length === self.restoreKeyBlockLength) {
+                        if (!isLast) {
+                            // ...focus the next one
                             Input.getNext(Input.tagName).select();
+                        } else {
+                            // ...if it was the last input enable the next-Button
+                            self.getButton('next').enable();
                         }
-                    });
-                }
+                    } else {
+                        // If the input field isn't full yet disable the button
+                        self.getButton('next').disable();
+                    }
+                });
+
 
                 // If something is pasted to the first input field, fill all the inputs with the pasted content
                 if (index === 0) {
                     Input.addEventListener('paste', function (event) {
                         // Remove dashes from the pasted text
                         var restoreKey = event.clipboardData.getData("Text").replace(/-/g, '');
+
+                        // If the pasted key hast the right length enable the next-Button
+                        if (restoreKey.length >= self.restoreKeyBlockLength * self.restoreKeyBlocks) {
+                            self.getButton('next').enable();
+                        }
 
                         // Explode the string to blocks with the length of a restore key block
                         var restoreKeyBlocks = restoreKey.match(
@@ -162,19 +186,49 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
         },
 
 
-        onClose: function() {
+        /**
+         * Fired when this dialog is closed.
+         * Destroys this control to reset all variables and controls
+         */
+        onClose: function () {
             // Destroy the form to reset all variables and controls
             this.destroy();
         },
 
 
+        /**
+         * Submits the form.
+         */
         submit: function () {
             this.disable();
-
             this.Form.submit();
         },
 
 
+        /**
+         * Fired when a file is added to the upload form.
+         * Enables the next-button.
+         *
+         * @param UploadForm
+         * @param File
+         */
+        onUploadFileAdded: function (UploadForm, File) {
+            this.getButton('next').enable();
+        },
+
+
+        /**
+         * Fired when a file is removed from the upload form.
+         * Disables the next-button.
+         */
+        onUploadFileRemoved: function () {
+            this.getButton('next').disable();
+        },
+
+
+        /**
+         * Fired when the file-upload is complete.
+         */
         onUploadComplete: function () {
             var self = this;
             QUIAjax.post(
@@ -298,6 +352,7 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
                 });
             }
 
+            NextButton.disable();
 
             if (index === 0) {
                 PreviousButton.disable();
@@ -310,7 +365,9 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
 
 
         /**
-         * Shows the next step
+         * Shows the next step. Returns if the next step was shown.
+         *
+         * @return boolean - Was the next step shown?
          */
         showNextStep: function () {
             if (this.activeStep < this.getSteps().length - 1) {
@@ -328,7 +385,9 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
 
 
         /**
-         * Shows the previous step
+         * Shows the previous step. Returns if the previous step was shown.
+         *
+         * @return boolean - Was the previous step shown?
          */
         showPreviousStep: function () {
             if (this.activeStep > 0) {
@@ -340,7 +399,7 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
 
 
         /**
-         * Returns all step elements
+         * Returns all step-elements
          *
          * @return {HTMLCollectionOf<Element>}
          */
