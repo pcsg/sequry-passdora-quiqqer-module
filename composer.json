@@ -2,7 +2,7 @@
     "name" : "sequry/passdora",
     "type" : "quiqqer-module",
     "description" : "Passdora module for QUIQQER",
-    "version" : "dev-dev",
+    "version" : "dev-master",
     "license" : "GPL-3.0+",
     "authors" : [
         {
