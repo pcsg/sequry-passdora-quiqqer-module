@@ -1,40 +1,40 @@
-passdora
-========
+![Passdora Logo](./bin/img/Passdora_Logo.png)
 
-Passdora module for QUIQQER
-
-Paketname:
-
-    sequry/passdora
+This repository contains the Passdora module for QUIQQER.  
+It's part of the [Passdora-System](https://dev.quiqqer.com/sequry/passdora).
 
 
-Features (Funktionen)
+Features
 --------
+
+Integrates features of the [Passdora-System](https://dev.quiqqer.com/sequry/passdora) into QUIQQER.
+
 
 
 Installation
 ------------
 
-Der Paketname ist: sequry/passdora
+Package name: sequry/passdora
 
 
-Mitwirken
+
+Contribute
 ----------
 
-- Issue Tracker: 
-- Source Code: 
+- Issue Tracker: https://dev.quiqqer.com/sequry/passdora-quiqqer-module/issues
+- Source Code: https://dev.quiqqer.com/sequry/passdora-quiqqer-module/tree/master
+
+
 
 
 Support
 -------
 
-Falls Sie einen Fehler gefunden haben oder Verbesserungen wünschen,
-senden Sie bitte eine E-Mail an support@pcsg.de.
+If you found any flaws, have any wishes or suggestions you can send an email to support@pcsg.de to inform us about your concerns. 
+We will try to respond to your request and forward it to the responsible developer.
 
 
-Lizenz
+License
 -------
 
-
-Entwickler
---------
+GPL-3.0+

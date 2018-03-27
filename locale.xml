@@ -1,9 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <locales>
-  <groups name="sequry/passdora" datatype="php,js">
-    <locale name="package.title">
-      <de><![CDATA[Passdora QUIQQER Modul]]></de>
-      <en><![CDATA[Passdora QUIQQER module]]></en>
-    </locale>
-  <locale name="package.description"><de><![CDATA[Passdora QUIQQER Modul]]></de><en><![CDATA[Passdora QUIQQER module]]></en></locale></groups>
+    <groups name="sequry/passdora" datatype="php,js">
+        <locale name="package.title">
+            <de><![CDATA[Passdora QUIQQER Modul]]></de>
+            <en><![CDATA[Passdora QUIQQER module]]></en>
+        </locale>
+        <locale name="package.description">
+            <de><![CDATA[Passdora QUIQQER Modul]]></de>
+            <en><![CDATA[Passdora QUIQQER module]]></en>
+        </locale>
+    </groups>
+
+    <groups name="sequry/passdora" datatype="php">
+        <locale name="menu.apps.passdora.title">
+            <de>Passdora</de>
+            <en>Passdora</en>
+        </locale>
+        <locale name="menu.apps.passdora.restore.title">
+            <de>System-Wiederherstellung</de>
+            <en>System-Restore</en>
+        </locale>
+
+        <locale name="error.restore.decrypt">
+            <de>Fehler beim Entschlüsseln der Backup-Datei: Ungültige Backup-Datei oder Restore-Key.</de>
+            <en>Error decrypting the backup-file: Invalid backup-file or restore-key.</en>
+        </locale>
+    </groups>
+
+    <groups name="sequry/passdora" datatype="js">
+        <locale name="restore.panel.title">
+            <de>System-Wiederherstellung</de>
+            <en>System-Restore</en>
+        </locale>
+
+        <locale name="restore.panel.file.title">
+            <de>Backup-Datei</de>
+            <en>Backup-File</en>
+        </locale>
+        <locale name="restore.panel.file.description">
+            <de>Bitte wählen Sie eine Backup-Datei aus, die genutzt werden soll um das System wiederherzustellen:</de>
+            <en>Please select a backup file which should be used to restore the system:</en>
+        </locale>
+
+        <locale name="restore.panel.key.title">
+            <de>Restore-Key</de>
+            <en>Restore-Key</en>
+        </locale>
+        <locale name="restore.panel.key.description">
+            <de>Bitten geben Sie den Restore-Schlüssel ein, den Sie bei der Ersteinrichtung Ihres Passdora-Systems erhalten haben:</de>
+            <en>Please enter the restore-key you copied when setting up your Passdora-system for the first time:</en>
+        </locale>
+
+        <locale name="restore.panel.finish.title">
+            <de>System-Wiederherstellung erfolgreich initialisiert!</de>
+            <en>System-Restore successfully initialized!</en>
+        </locale>
+        <locale name="restore.panel.finish.description">
+            <de>Bitte starten Sie Ihre Passdora-Box neu um die System-Wiederherstellung abzuschließen.</de>
+            <en>Please restart your Passdora-box to complete the system-restore.</en>
+        </locale>
+        <locale name="restore.panel.finish.abortRestore">
+            <de>Wenn Sie die System-Wiederherstellung abbrechen wollen, klicken Sie auf den Button unten.</de>
+            <en>If you want to abort the system-restore, click the button below.</en>
+        </locale>
+
+        <locale name="restore.panel.button.previous">
+            <de>Zurück</de>
+            <en>Previous</en>
+        </locale>
+        <locale name="restore.panel.button.next">
+            <de>Weiter</de>
+            <en>Next</en>
+        </locale>
+        <locale name="restore.panel.button.submit">
+            <de>Absenden</de>
+            <en>Submit</en>
+        </locale>
+        <locale name="restore.panel.button.abort">
+            <de>System-Wiederherstellung abbrechen</de>
+            <en>Abort System-Restore</en>
+        </locale>
+
+        <locale name="restore.abort.success">
+            <de>System-Wiederherstellung wurde erfolgreich abgebrochen.</de>
+            <en>System-Restore was successfully cancelled.</en>
+        </locale>
+        <locale name="restore.abort.error">
+            <de>Beim Abbrechen der System-Wiederherstellung ist ein Fehler aufgetreten.</de>
+            <en>An error occurred trying to abort the system-restore.</en>
+        </locale>
+    </groups>
 </locales>
