@@ -100,14 +100,13 @@ class Restore
 
 
     /**
-     * Cleans up the restore directory (e.g. removing unnecessary files as the un- and encrypted archives)
+     * Cleans up the restore directory (removes all files in it)
      *
-     * @throws QUI\Exception
      */
     public static function cleanupDirectory()
     {
-        File::unlink(self::DIRECTORY.self::FILE_ENCRYPTED);    
-        File::unlink(self::DIRECTORY.self::FILE_DECRYPTED);    
+        File::deleteDir(self::DIRECTORY);
+        self::createDirectory();
     }
 
 
