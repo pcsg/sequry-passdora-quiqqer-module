@@ -439,6 +439,27 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
          */
         getStepIndicators: function () {
             return this.getElm().getElementsByClassName('step-indicator');
+        },
+
+
+        /**
+         * Returns a promise resolving with a boolean telling if the system-restore is currently requested or not
+         *
+         *
+         * @return Promise
+         */
+        isRestoreRequested: function () {
+            return new Promise(function (resolve, reject) {
+                QUIAjax.get(
+                    'package_sequry_passdora_ajax_isRestoreRequested',
+                    function (result) {
+                        resolve(result);
+                    }, {
+                        'package': 'sequry/passdora',
+                        onError  : reject
+                    }
+                );
+            });
         }
     });
 });

@@ -132,4 +132,22 @@ class Restore
         $Config->set('restore', 'is_requested', 1);
         $Config->save();
     }
+
+
+    /**
+     * Returns if a restore is currently requested
+     *
+     * @return bool
+     */
+    public static function isRequested()
+    {
+        try {
+            $Config = QUI::getPackage('sequry/passdora')->getConfig();
+
+            return $Config->get('restore', 'is_requested') == 1;
+        } catch (QUI\Exception $exception) {
+        }
+
+        return false;
+    }
 }
