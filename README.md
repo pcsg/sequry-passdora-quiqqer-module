@@ -1,5 +1,4 @@
-PASSDORA
-========
+![Passdora Logo](./bin/img/Passdora_Logo.png)
 
 This repository contains the Passdora module for QUIQQER.  
 It's part of the [Passdora-System](https://dev.quiqqer.com/sequry/passdora).
