@@ -59,6 +59,10 @@
             <de>Bitte starten Sie Ihre Passdora-Box neu um die System-Wiederherstellung abzuschließen.</de>
             <en>Please restart your Passdora-box to complete the system-restore.</en>
         </locale>
+        <locale name="restore.panel.finish.abortRestore">
+            <de>Wenn Sie die System-Wiederherstellung abbrechen wollen, klicken Sie auf den Button unten.</de>
+            <en>If you want to abort the system-restore, click the button below.</en>
+        </locale>
 
         <locale name="restore.panel.button.previous">
             <de>Zurück</de>
@@ -71,6 +75,19 @@
         <locale name="restore.panel.button.submit">
             <de>Absenden</de>
             <en>Submit</en>
+        </locale>
+        <locale name="restore.panel.button.abort">
+            <de>System-Wiederherstellung abbrechen</de>
+            <en>Abort System-Restore</en>
+        </locale>
+
+        <locale name="restore.abort.success">
+            <de>System-Wiederherstellung wurde erfolgreich abgebrochen.</de>
+            <en>System-Restore was successfully cancelled.</en>
+        </locale>
+        <locale name="restore.abort.error">
+            <de>Beim Abbrechen der System-Wiederherstellung ist ein Fehler aufgetreten.</de>
+            <en>An error occurred trying to abort the system-restore.</en>
         </locale>
     </groups>
 </locales>

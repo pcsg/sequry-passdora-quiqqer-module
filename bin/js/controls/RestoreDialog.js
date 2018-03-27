@@ -43,6 +43,7 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
             'showPreviousStep',
             'showNextStep',
             'abortRestore',
+            'abortRestoreClick'
         ],
 
         options: {
@@ -88,111 +89,137 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
             var self = this;
             var Content = Win.getContent();
 
-            var NextButton = new QUIButton({
-                name     : 'next',
-                textimage: 'fa fa-chevron-right',
-                text     : QUILocale.get(lg, 'restore.panel.button.next')
-            }).addEvent('click', this.showNextStep);
+            this.isRestoreRequested().then(function (isRestoreRequested) {
+                if (isRestoreRequested) {
+                    Content.set({
+                        html: Mustache.render(template, {
+                            locale            : {
+                                finish: {
+                                    title      : QUILocale.get(lg, 'restore.panel.finish.title'),
+                                    description: QUILocale.get(lg, 'restore.panel.finish.description'),
+                                    abortRestore: QUILocale.get(lg, 'restore.panel.finish.abortRestore')
+                                }
+                            },
+                            isRestoreRequested: isRestoreRequested
+                        })
+                    });
 
-            var PreviousButton = new QUIButton({
-                name     : 'previous',
-                textimage: 'fa fa-chevron-left',
-                text     : QUILocale.get(lg, 'restore.panel.button.previous')
-            }).addEvent('click', this.showPreviousStep);
+                    var AbortButton = new QUIButton({
+                        name     : 'abort',
+                        textimage: 'fa fa-ban',
+                        text     : QUILocale.get(lg, 'restore.panel.button.abort'),
+                        'class'  : 'btn-red'
+                    }).addEvent('click', self.abortRestoreClick);
+                    self.addButton(AbortButton);
+                } else {
+                    var NextButton = new QUIButton({
+                        name     : 'next',
+                        textimage: 'fa fa-chevron-right',
+                        text     : QUILocale.get(lg, 'restore.panel.button.next')
+                    }).addEvent('click', self.showNextStep);
 
-            PreviousButton.disable();
-            NextButton.disable();
+                    var PreviousButton = new QUIButton({
+                        name     : 'previous',
+                        textimage: 'fa fa-chevron-left',
+                        text     : QUILocale.get(lg, 'restore.panel.button.previous')
+                    }).addEvent('click', self.showPreviousStep);
 
-            this.addButton(NextButton);
-            this.addButton(PreviousButton);
+                    PreviousButton.disable();
+                    NextButton.disable();
 
-            this.Form = new UploadForm({
-                maxuploads: 1
-            });
+                    self.addButton(NextButton);
+                    self.addButton(PreviousButton);
 
-            Content.set({
-                html: Mustache.render(template, {
-                    locale: {
-                        uploadForm: {
-                            title      : QUILocale.get(lg, 'restore.panel.file.title'),
-                            description: QUILocale.get(lg, 'restore.panel.file.description')
-                        },
-                        restoreKey: {
-                            title      : QUILocale.get(lg, 'restore.panel.key.title'),
-                            description: QUILocale.get(lg, 'restore.panel.key.description')
-                        },
-                        finish: {
-                            title      : QUILocale.get(lg, 'restore.panel.finish.title'),
-                            description: QUILocale.get(lg, 'restore.panel.finish.description')
-                        }
-                    }
-                })
-            });
+                    self.Form = new UploadForm({
+                        maxuploads: 1
+                    });
 
-            var UploadFormContainer = Content.getElementById('upload-form');
+                    Content.set({
+                        html: Mustache.render(template, {
+                            locale: {
+                                uploadForm: {
+                                    title      : QUILocale.get(lg, 'restore.panel.file.title'),
+                                    description: QUILocale.get(lg, 'restore.panel.file.description')
+                                },
+                                restoreKey: {
+                                    title      : QUILocale.get(lg, 'restore.panel.key.title'),
+                                    description: QUILocale.get(lg, 'restore.panel.key.description')
+                                },
+                                finish    : {
+                                    title      : QUILocale.get(lg, 'restore.panel.finish.title'),
+                                    description: QUILocale.get(lg, 'restore.panel.finish.description')
+                                }
+                            },
+                            isRestoreRequested : isRestoreRequested
+                        })
+                    });
 
-            this.Form.setParam('onfinish', 'package_sequry_passdora_ajax_upload');
+                    var UploadFormContainer = Content.getElementById('upload-form');
 
-            this.Form.addEvents({
-                onComplete    : this.onUploadComplete,
-                onAdd         : this.onUploadFileAdded,
-                onInputDestroy: this.onUploadFileRemoved
-            });
+                    self.Form.setParam('onfinish', 'package_sequry_passdora_ajax_upload');
 
-            this.Form.inject(UploadFormContainer);
+                    self.Form.addEvents({
+                        onComplete    : self.onUploadComplete,
+                        onAdd         : self.onUploadFileAdded,
+                        onInputDestroy: self.onUploadFileRemoved
+                    });
 
-            this.restoreKeyBlocks = this.getRestoreInputs().length;
+                    self.Form.inject(UploadFormContainer);
 
-            this.forEachRestoreInput(function (Input, index, isLast) {
+                    self.restoreKeyBlocks = self.getRestoreInputs().length;
 
-                Input.setAttribute('maxlength', self.restoreKeyBlockLength);
+                    self.forEachRestoreInput(function (Input, index, isLast) {
 
-                Input.addEventListener('input', function () {
-                    var restoreKeyLength = self.restoreKeyBlockLength * self.restoreKeyBlocks;
+                        Input.setAttribute('maxlength', self.restoreKeyBlockLength);
 
-                    // Add the amount of spacing dashes
-                    restoreKeyLength += self.restoreKeyBlocks - 1;
+                        Input.addEventListener('input', function () {
+                            var restoreKeyLength = self.restoreKeyBlockLength * self.restoreKeyBlocks;
 
-                    // When an input field is full...
-                    if (Input.value.length === self.restoreKeyBlockLength) {
-                        if (!isLast) {
-                            // ...focus the next one
-                            Input.getNext(Input.tagName).select();
-                        }
+                            // Add the amount of spacing dashes
+                            restoreKeyLength += self.restoreKeyBlocks - 1;
 
-                        // If the given input is as long as a restore key enable the next-button
-                        if (self.getRestoreKeyFromInputs().length === restoreKeyLength) {
-                            self.getButton('next').enable();
-                        }
-                    } else {
-                        // If the input field isn't full yet disable the button
-                        self.getButton('next').disable();
-                    }
-                });
+                            // When an input field is full...
+                            if (Input.value.length === self.restoreKeyBlockLength) {
+                                if (!isLast) {
+                                    // ...focus the next one
+                                    Input.getNext(Input.tagName).select();
+                                }
 
-
-                // If something is pasted to the first input field, fill all the inputs with the pasted content
-                if (index === 0) {
-                    Input.addEventListener('paste', function (event) {
-                        // Remove dashes from the pasted text
-                        var restoreKey = event.clipboardData.getData("Text").replace(/-/g, '');
-
-                        // If the pasted key hast the right length enable the next-Button
-                        if (restoreKey.length >= self.restoreKeyBlockLength * self.restoreKeyBlocks) {
-                            self.getButton('next').enable();
-                        }
-
-                        // Explode the string to blocks with the length of a restore key block
-                        var restoreKeyBlocks = restoreKey.match(
-                            new RegExp('.{1,' + self.restoreKeyBlockLength + '}', 'g')
-                        );
-
-                        // Fill the input fields
-                        self.forEachRestoreInput(function (Input, index) {
-                            if (typeof restoreKeyBlocks[index] !== "undefined") {
-                                Input.value = restoreKeyBlocks[index];
+                                // If the given input is as long as a restore key enable the next-button
+                                if (self.getRestoreKeyFromInputs().length === restoreKeyLength) {
+                                    self.getButton('next').enable();
+                                }
+                            } else {
+                                // If the input field isn't full yet disable the button
+                                self.getButton('next').disable();
                             }
                         });
+
+
+                        // If something is pasted to the first input field, fill all the inputs with the pasted content
+                        if (index === 0) {
+                            Input.addEventListener('paste', function (event) {
+                                // Remove dashes from the pasted text
+                                var restoreKey = event.clipboardData.getData("Text").replace(/-/g, '');
+
+                                // If the pasted key hast the right length enable the next-Button
+                                if (restoreKey.length >= self.restoreKeyBlockLength * self.restoreKeyBlocks) {
+                                    self.getButton('next').enable();
+                                }
+
+                                // Explode the string to blocks with the length of a restore key block
+                                var restoreKeyBlocks = restoreKey.match(
+                                    new RegExp('.{1,' + self.restoreKeyBlockLength + '}', 'g')
+                                );
+
+                                // Fill the input fields
+                                self.forEachRestoreInput(function (Input, index) {
+                                    if (typeof restoreKeyBlocks[index] !== "undefined") {
+                                        Input.value = restoreKeyBlocks[index];
+                                    }
+                                });
+                            });
+                        }
                     });
                 }
             });
@@ -482,6 +509,31 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
                         onError  : reject
                     }
                 );
+            });
+        },
+
+
+        /**
+         * Fired when clicked on the abort system-restore button
+         */
+        abortRestoreClick: function () {
+            var self = this;
+            this.abortRestore().then(function (isAborted) {
+                if (isAborted) {
+                    self.close();
+                    QUI.getMessageHandler().then(function (MessageHandler) {
+                        MessageHandler.addSuccess(
+                            QUILocale.get(lg, 'restore.abort.success')
+                        );
+                    });
+                } else {
+                    QUI.getMessageHandler().then(function (MessageHandler) {
+                        MessageHandler.addError(
+                            QUILocale.get(lg, 'restore.abort.error'),
+                            self.getButton('abort').getElm()
+                        );
+                    });
+                }
             });
         }
     });
