@@ -150,4 +150,28 @@ class Restore
 
         return false;
     }
+
+
+    /**
+     * Aborts the restore process.
+     * (Sets the isRequested config value to zero and cleans up the files).
+     *
+     * @return bool
+     */
+    public static function abort()
+    {
+        try {
+            $Config = QUI::getPackage('sequry/passdora')->getConfig();
+            $Config->set('restore', 'is_requested', 0);
+            $Config->save();
+
+            self::cleanupDirectory();
+        } catch (QUI\Exception $Exception) {
+            QUI\System\Log::writeException($Exception);
+
+            return false;
+        }
+
+        return true;
+    }
 }

@@ -41,7 +41,8 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
             'getRestoreKeyFromInputs',
             'showStep',
             'showPreviousStep',
-            'showNextStep'
+            'showNextStep',
+            'abortRestore',
         ],
 
         options: {
@@ -452,6 +453,28 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
             return new Promise(function (resolve, reject) {
                 QUIAjax.get(
                     'package_sequry_passdora_ajax_isRestoreRequested',
+                    function (result) {
+                        resolve(result);
+                    }, {
+                        'package': 'sequry/passdora',
+                        onError  : reject
+                    }
+                );
+            });
+        },
+
+
+        /**
+         * Aborts the restore process.
+         * Returns a promise resolving if the abortion was successful.
+         * Rejects if an errors occurs.
+         *
+         * @return Promise
+         */
+        abortRestore: function () {
+            return new Promise(function (resolve, reject) {
+                QUIAjax.post(
+                    'package_sequry_passdora_ajax_abortRestore',
                     function (result) {
                         resolve(result);
                     }, {
