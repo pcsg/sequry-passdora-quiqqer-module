@@ -86,10 +86,10 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Stepped', [
                 text     : QUILocale.get(lg, 'restore.panel.button.previous')
             }).addEvent('click', self.showPreviousStep);
 
-            PreviousButton.disable();
-
             self.addButton(NextButton);
             self.addButton(PreviousButton);
+
+            this.disablePreviousButton();
 
             Content.set({
                 html: Mustache.render(template)
@@ -116,8 +116,8 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Stepped', [
          * Note that button states are discarded.
          */
         disable: function () {
-            this.getNextButton().disable();
-            this.getPreviousButton().disable();
+            this.disableNextButton();
+            this.disablePreviousButton();
             this.getElm().getElementById('stepped-dialog').addClass('disabled');
         },
 
@@ -149,7 +149,7 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Stepped', [
             }
 
             if (steps.length > 1) {
-                this.getNextButton().enable();
+                this.enableNextButton();
             }
         },
 
@@ -189,23 +189,20 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Stepped', [
             var steps = this.getSteps();
             var stepIndicators = this.getStepIndicators();
 
-            var NextButton = this.getNextButton();
-            var PreviousButton = this.getPreviousButton();
-
             steps[this.activeStep].style.display = 'none';
             steps[index].style.display = 'block';
 
             stepIndicators[this.activeStep].removeClass('active');
             stepIndicators[index].addClass('active');
 
-            PreviousButton.enable();
+            this.enablePreviousButton();
             if (index === 0) {
-                PreviousButton.disable();
+                this.disablePreviousButton();
             }
 
-            NextButton.enable();
+            this.enableNextButton();
             if (index === steps.length - 1) {
-                NextButton.disable();
+                this.disableNextButton();
             }
 
             this.activeStep = index;
@@ -307,6 +304,38 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Stepped', [
          */
         hideStepIndicators: function () {
             this.getElm().getElementById('step-indicators').hide();
+        },
+
+
+        /**
+         * Enables the "next"-button
+         */
+        enableNextButton: function () {
+            this.getNextButton().enable();
+        },
+
+
+        /**
+         * Disables the "next"-button
+         */
+        disableNextButton: function () {
+            this.getNextButton().disable();
+        },
+
+
+        /**
+         * Enables the "previous"-button
+         */
+        enablePreviousButton: function () {
+            this.getPreviousButton().enable();
+        },
+
+
+        /**
+         * Disables the "previous"-button
+         */
+        disablePreviousButton: function () {
+            this.getPreviousButton().disable();
         }
     });
 });
