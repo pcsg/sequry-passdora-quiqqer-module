@@ -249,7 +249,7 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Stepped', [
             var steps = this.getSteps();
             if (this.activeStep < steps.length - 1) {
                 this.showStep(this.activeStep + 1);
-                this.fireEvent('showNextStep', [steps[this.activeStep + 1]]);
+                this.fireEvent('showNextStep', [steps[this.activeStep]]);
                 return true;
             }
 
@@ -265,7 +265,7 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Stepped', [
         showPreviousStep: function () {
             if (this.activeStep > 0) {
                 this.showStep(this.activeStep - 1);
-                this.fireEvent('showPreviousStep', [this.getSteps()[this.activeStep - 1]]);
+                this.fireEvent('showPreviousStep', [this.getSteps()[this.activeStep]]);
                 return true;
             }
             return false;
