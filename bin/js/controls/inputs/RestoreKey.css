@@ -1,0 +1,17 @@
+#restore-key {
+    text-align: center;
+}
+
+#restore-key.disabled {
+    opacity: 0.5;
+}
+
+.restore-key-block {
+    font-size: 2.25rem;
+    text-align: center;
+}
+
+.restore-key-separator {
+    margin: 0 10px;
+    font-size: 2.25rem;
+}
