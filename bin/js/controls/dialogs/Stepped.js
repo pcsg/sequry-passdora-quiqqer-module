@@ -4,6 +4,10 @@
  * @module package/sequry/passdora/bin/js/controls/Restore/Dialog
  * @author www.pcsg.de (Jan Wennrich)
  *
+ * @event onShowStep
+ * @event onShowNextStep
+ * @event onShowPreviousStep
+ *
  */
 define('package/sequry/passdora/bin/js/controls/dialogs/Stepped', [
 
@@ -242,8 +246,10 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Stepped', [
          * @return boolean - Was the next step shown?
          */
         showNextStep: function () {
-            if (this.activeStep < this.getSteps().length - 1) {
+            var steps = this.getSteps();
+            if (this.activeStep < steps.length - 1) {
                 this.showStep(this.activeStep + 1);
+                this.fireEvent('showNextStep', [steps[this.activeStep + 1]]);
                 return true;
             }
 
@@ -259,6 +265,7 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Stepped', [
         showPreviousStep: function () {
             if (this.activeStep > 0) {
                 this.showStep(this.activeStep - 1);
+                this.fireEvent('showPreviousStep', [this.getSteps()[this.activeStep - 1]]);
                 return true;
             }
             return false;
