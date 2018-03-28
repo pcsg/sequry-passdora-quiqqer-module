@@ -1,11 +1,11 @@
 /**
  * TODO: Docs
  *
- * @module package/sequry/passdora/bin/js/controls/RestoreDialog
+ * @module package/sequry/passdora/bin/js/controls/Restore/Dialog
  * @author www.pcsg.de (Jan Wennrich)
  *
  */
-define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
+define('package/sequry/passdora/bin/js/controls/Restore/Dialog', [
 
     'qui/QUI',
     'qui/controls/windows/Popup',
@@ -14,8 +14,8 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
     'Ajax',
     'Locale',
     'Mustache',
-    'text!package/sequry/passdora/bin/js/controls/RestoreDialog.html',
-    'css!package/sequry/passdora/bin/js/controls/RestoreDialog.css'
+    'text!package/sequry/passdora/bin/js/controls/Restore/Dialog.html',
+    'css!package/sequry/passdora/bin/js/controls/Restore/Dialog.css'
 
 ], function (QUI, QUIPopup, QUIButton, UploadForm, QUIAjax, QUILocale, Mustache, template) {
     "use strict";
@@ -24,7 +24,7 @@ define('package/sequry/passdora/bin/js/controls/RestoreDialog', [
 
     return new Class({
         Extends: QUIPopup,
-        Type   : 'package/sequry/passdora/bin/js/controls/RestoreDialog',
+        Type   : 'package/sequry/passdora/bin/js/controls/Restore/Dialog',
 
         Binds: [
             'onOpen',

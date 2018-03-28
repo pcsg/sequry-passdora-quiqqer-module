@@ -10,7 +10,7 @@
     <item parent="/apps/passdora/"
           name="restore"
           icon="fa fa-undo"
-          require="package/sequry/passdora/bin/js/controls/RestoreDialog"
+          require="package/sequry/passdora/bin/js/controls/Restore/Dialog"
     >
         <locale group="sequry/passdora" var="menu.apps.passdora.restore.title"/>
     </item>
