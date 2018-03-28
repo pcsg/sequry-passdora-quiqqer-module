@@ -160,8 +160,13 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Stepped', [
          * @param {number} index
          */
         removeStep: function (index) {
-            this.getSteps()[index].destroy();
+            var steps = this.getSteps();
+            steps[index].destroy();
             this.getStepIndicators()[0].destroy();
+
+            if (steps.length === 1 || this.activeStep === index - 1) {
+                this.disableNextButton();
+            }
         },
 
 
