@@ -178,14 +178,21 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Stepped', [
          * Creates a Step-Element to use with addStep()
          *
          * @param {string} html - The content of the step
+         * @param {string} stepName - The name/id of the step element
          *
          * @return {Element}
          */
-        createStepElement: function (html) {
-            return new Element('div', {
+        createStepElement: function (html, stepName) {
+            var Step = new Element('div', {
                 'class': 'step',
                 'html' : html
             });
+
+            if (stepName) {
+                Step.id = stepName;
+            }
+
+            return Step;
         },
 
 
