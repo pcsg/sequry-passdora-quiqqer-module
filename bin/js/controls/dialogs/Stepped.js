@@ -357,6 +357,22 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Stepped', [
          */
         disablePreviousButton: function () {
             this.getPreviousButton().disable();
+        },
+
+
+        /**
+         * Resets the buttons text and icon to their default properties.
+         */
+        resetButtons: function () {
+            this.getNextButton().setAttributes({
+                textimage: 'fa fa-chevron-right',
+                text     : QUILocale.get(lg, 'restore.panel.button.next')
+            });
+
+            this.getPreviousButton().setAttributes({
+                textimage: 'fa fa-chevron-left',
+                text     : QUILocale.get(lg, 'restore.panel.button.previous')
+            });
         }
     });
 });
