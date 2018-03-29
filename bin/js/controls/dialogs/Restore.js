@@ -8,8 +8,6 @@
 define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
 
     'qui/QUI',
-    'qui/controls/windows/Popup',
-    'qui/controls/buttons/Button',
     'controls/upload/Form',
     'package/sequry/passdora/bin/js/controls/dialogs/Stepped',
     'package/sequry/passdora/bin/js/controls/inputs/RestoreKey',
@@ -21,7 +19,7 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
     'text!package/sequry/passdora/bin/js/controls/dialogs/restore-templates/steps/upload.html',
     'css!package/sequry/passdora/bin/js/controls/dialogs/Restore.css'
 
-], function (QUI, QUIPopup, QUIButton, UploadForm, SteppedDialog, RestoreKeyInput, QUIAjax, QUILocale, Mustache, templateFinish, templateKey, templateUpload) {
+], function (QUI, UploadForm, SteppedDialog, RestoreKeyInput, QUIAjax, QUILocale, Mustache, templateFinish, templateKey, templateUpload) {
     "use strict";
 
     var lg = 'sequry/passdora';
