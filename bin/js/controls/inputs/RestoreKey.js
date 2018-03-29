@@ -30,7 +30,7 @@ define('package/sequry/passdora/bin/js/controls/inputs/RestoreKey', [
             'enable',
             'forEachRestoreInput',
             'getRestoreInputs',
-            'getRestoreKeyFromInputs',
+            'getInput',
             'getRestoreKeyLength',
             'initialize',
             'onInput',
@@ -120,7 +120,7 @@ define('package/sequry/passdora/bin/js/controls/inputs/RestoreKey', [
                 }
 
                 // ...and the text in all inputs is as long as a restore key
-                if (this.getRestoreKeyFromInputs().length === this.getRestoreKeyLength()) {
+                if (this.getInput().length === this.getRestoreKeyLength()) {
                     this.fireEvent('inputFull');
                 }
             }
@@ -155,7 +155,7 @@ define('package/sequry/passdora/bin/js/controls/inputs/RestoreKey', [
          *
          * @return {string}
          */
-        getRestoreKeyFromInputs: function () {
+        getInput: function () {
             var restoreKey = "";
 
             this.forEachRestoreInput(function (Input, index, isLast) {
