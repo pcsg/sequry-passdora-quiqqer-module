@@ -89,6 +89,8 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
             this.addStep(this.buildFinishStep());
 
             this.disableNextButton();
+
+            // TODO: if restore already requested, display something else
         },
 
 
