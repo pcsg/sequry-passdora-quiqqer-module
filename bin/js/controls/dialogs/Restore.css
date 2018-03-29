@@ -2,7 +2,7 @@
     height: 235px;
 }
 
-#restore-dialog {
+#stepped-dialog {
     text-align: center;
     display: flex;
     justify-content: center;
@@ -11,13 +11,13 @@
 }
 
 
-#restore-dialog .step {
+#stepped-dialog .step {
     display: none;
     flex-grow: 1;
 }
 
 
-#restore-dialog .step:first-of-type {
+#stepped-dialog .step:first-of-type {
     display: block;
 }
 

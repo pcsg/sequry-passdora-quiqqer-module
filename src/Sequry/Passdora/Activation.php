@@ -20,7 +20,7 @@ class Activation
         $Package = QUI::getPackage('sequry/passdora');
         $Config  = $Package->getConfig();
 
-        return $Config->getValue('general', 'is_activated');
+        return $Config->getValue('general', 'is_activated') == 1;
     }
 
 

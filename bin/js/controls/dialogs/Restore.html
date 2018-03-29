@@ -1,0 +1,11 @@
+<div id="stepped-dialog">
+    {{#isRestoreRequested}}
+        <i class="fa fa-5x fa-check"></i>
+        <h2 class="restore-dialog-title">{{locale.finish.title}}</h2>
+        <div class="restore-dialog-description">{{locale.finish.description}}</div>
+        <p>{{locale.finish.abortRestore}}</p>
+    {{/isRestoreRequested}}
+    {{^isRestoreRequested}}
+
+    {{/isRestoreRequested}}
+</div>
