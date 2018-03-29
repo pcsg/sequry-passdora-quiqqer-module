@@ -1,0 +1,59 @@
+#upload-form {
+    height: 235px;
+}
+
+#stepped-dialog {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+}
+
+
+#stepped-dialog .step {
+    display: none;
+    flex-grow: 1;
+}
+
+
+#stepped-dialog .step:first-of-type {
+    display: block;
+}
+
+.restore-dialog-description {
+    margin-bottom: 5px;
+}
+
+
+.restore-dialog-title {
+    margin-bottom: 7px;
+}
+
+#restore-key {
+    text-align: center;
+}
+
+#restore-key.disabled {
+    opacity: 0.5;
+}
+
+.restore-key-block {
+    font-size: 2.25rem;
+    text-align: center;
+}
+
+.restore-key-separator {
+    margin: 0 10px;
+    font-size: 2.25rem;
+}
+
+
+.step-indicator {
+    color: lightgrey;
+    margin: 0 2px;
+}
+
+.step-indicator.active {
+    color: grey;
+}
