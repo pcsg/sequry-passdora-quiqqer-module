@@ -20,10 +20,23 @@
             <de>System-Wiederherstellung</de>
             <en>System-Restore</en>
         </locale>
+        <locale name="menu.apps.passdora.update.title">
+            <de>System-Aktualisierung</de>
+            <en>System-Update</en>
+        </locale>
 
         <locale name="error.restore.decrypt">
             <de>Fehler beim Entschlüsseln der Backup-Datei: Ungültige Backup-Datei oder Restore-Key.</de>
             <en>Error decrypting the backup-file: Invalid backup-file or restore-key.</en>
+        </locale>
+
+        <locale name="error.update.verify">
+            <de>Die Echtheit der Aktualisierungs-Datei konnte nicht verifiziert werden. Wählen Sie "Unbekannten Quellen vertrauen" um dies zu ignorieren.</de>
+            <en>The authenticity of the update-file could not be verified. Select "Trust unknown sources" to ignore this.</en>
+        </locale>
+        <locale name="error.update.decrypt">
+            <de>Die Aktualisierungs-Datei ist fehlerhaft oder wurde manipuliert. Bitte versuchen Sie es erneut, oder wählen sie eine andere Datei aus.</de>
+            <en>The update-file is damaged or was manipulated. Please try again or choose another file.</en>
         </locale>
     </groups>
 
@@ -88,6 +101,39 @@
         <locale name="restore.abort.error">
             <de>Beim Abbrechen der System-Wiederherstellung ist ein Fehler aufgetreten.</de>
             <en>An error occurred trying to abort the system-restore.</en>
+        </locale>
+
+
+        <locale name="update.panel.title">
+            <de>System-Aktualisierung</de>
+            <en>System-Update</en>
+        </locale>
+
+        <locale name="update.panel.file.title">
+            <de>Aktualisierungs-Datei</de>
+            <en>Update-File</en>
+        </locale>
+        <locale name="update.panel.file.description">
+            <de>Bitte wählen Sie eine Aktualisierungs-Datei aus, die genutzt werden soll um das System zu aktualisieren:</de>
+            <en>Please select an update-file which should be used to update the system:</en>
+        </locale>
+        <locale name="update.panel.file.trustUnknownSources">
+            <de>Unbekannten Quellen vertrauen?</de>
+            <en>Trust unknown sources?</en>
+        </locale>
+
+        <locale name="update.panel.button.submit">
+            <de>Aktualisieren</de>
+            <en>Update</en>
+        </locale>
+
+        <locale name="update.panel.finish.title">
+            <de>System-Aktualisierung erfolgreich initialisiert!</de>
+            <en>System-Update successfully initialized!</en>
+        </locale>
+        <locale name="update.panel.finish.description">
+            <de>Bitte starten Sie Ihre Passdora-Box neu um die System-Aktualisierung abzuschließen.</de>
+            <en>Please restart your Passdora-box to complete the system-update.</en>
         </locale>
     </groups>
 </locales>

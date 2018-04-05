@@ -1,0 +1,12 @@
+.update-dialog-title {
+    margin-bottom: 7px;
+}
+
+#update-upload-form {
+    height: 160px;
+}
+
+#trust-unknown-sources-wrapper {
+    text-align: left;
+    margin-top: 10px;
+}
