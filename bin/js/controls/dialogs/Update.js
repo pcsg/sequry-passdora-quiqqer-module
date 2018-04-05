@@ -1,5 +1,5 @@
 /**
- * TODO: Docs
+ * Displays a dialog to upload system-update-files
  *
  * @module package/sequry/passdora/bin/js/controls/dialogs/Update
  * @author www.pcsg.de (Jan Wennrich)
@@ -95,16 +95,31 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Update', [
         },
 
 
+        /**
+         * Called when the next step is shown
+         *
+         * @param Step
+         */
         onShowNextStep: function (Step) {
             this.disableNextButton();
         },
 
 
+        /**
+         * Called when the previous step is shown
+         *
+         * @param Step
+         */
         onShowPreviousStep: function (Step) {
             this.enableNextButton();
         },
 
 
+        /**
+         * Called when any step is shown
+         *
+         * @param Step
+         */
         onShowStep: function (Step) {
             if (Step.id === 'upload') {
                 this.getNextButton().setAttributes({
@@ -131,6 +146,11 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Update', [
         },
 
 
+        /**
+         * Builds and returns the file-upload step
+         *
+         * @return {Element}
+         */
         buildUploadStep: function () {
             var stepUploadHtml = Mustache.render(templateUpload, {
                     title         : QUILocale.get(lg, 'update.panel.file.title'),
@@ -156,6 +176,11 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Update', [
         },
 
 
+        /**
+         * Builds and returns the finish step
+         *
+         * @return {Element}
+         */
         buildFinishStep: function () {
             var stepFinishHtml = Mustache.render(templateFinish, {
                     title      : QUILocale.get(lg, 'update.panel.finish.title'),
@@ -167,7 +192,7 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Update', [
 
 
         /**
-         * Fired when a file is added to the upload form.
+         * Called when a file is added to the upload form.
          * Enables the next-button.
          *
          * @param UploadForm
@@ -180,7 +205,7 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Update', [
 
 
         /**
-         * Fired when a file is removed from the upload form.
+         * Called when a file is removed from the upload form.
          * Disables the next-button.
          */
         onUploadFileRemoved: function () {
@@ -189,7 +214,7 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Update', [
 
 
         /**
-         * Fired when the file-upload is complete.
+         * Called when the file-upload is complete.
          */
         onUploadComplete: function () {
             var self = this;

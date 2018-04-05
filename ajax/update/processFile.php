@@ -3,9 +3,10 @@
 use \Sequry\Passdora\Update;
 
 /**
- * Verify and extract an update-file
+ * Verify and extract an update-file.
+ * If the $trustUnknownSources param is set to true the validity of the file's signature isn't checked
  *
- * @param boolean $trustUnknownSources
+ * @param boolean $trustUnknownSources - check if the file's signature is valid
  *
  */
 QUI::$Ajax->registerFunction(

@@ -1,5 +1,5 @@
 /**
- * TODO: Docs
+ * A dialog used to upload system-restore-files
  *
  * @module package/sequry/passdora/bin/js/controls/dialogs/Restore
  * @author www.pcsg.de (Jan Wennrich)
@@ -93,7 +93,7 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
 
 
         /**
-         * Fired when this dialog is closed.
+         * Called when this dialog is closed.
          * Destroys this control to reset all variables and controls
          */
         onClose: function () {
@@ -102,16 +102,31 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
         },
 
 
+        /**
+         * Called when a next step is shown
+         *
+         * @param Step - the previous step that is now shown
+         */
         onShowNextStep: function (Step) {
             this.disableNextButton();
         },
 
 
+        /**
+         * Called when a previous step is shown
+         *
+         * @param Step - the next step that is now shown
+         */
         onShowPreviousStep: function (Step) {
             this.enableNextButton();
         },
 
 
+        /**
+         * Called when any step is shown
+         *
+         * @param Step - the step that is now shown
+         */
         onShowStep: function (Step) {
             this.resetButtons();
 
@@ -141,6 +156,11 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
         },
 
 
+        /**
+         * Builds and returns the file-upload step
+         *
+         * @return {Element}
+         */
         buildUploadStep: function () {
             var stepUploadHtml = Mustache.render(templateUpload, {
                     title      : QUILocale.get(lg, 'restore.panel.file.title'),
@@ -165,6 +185,11 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
         },
 
 
+        /**
+         * Builds and returns the restore-key-input step
+         *
+         * @return {Element}
+         */
         buildKeyStep: function () {
             var stepKeyHtml = Mustache.render(templateKey, {
                     title      : QUILocale.get(lg, 'restore.panel.key.title'),
@@ -189,6 +214,11 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
         },
 
 
+        /**
+         * Builds and returns the finish step
+         *
+         * @return {Element}
+         */
         buildFinishStep: function () {
             var stepFinishHtml = Mustache.render(templateFinish, {
                     title      : QUILocale.get(lg, 'restore.panel.finish.title'),
