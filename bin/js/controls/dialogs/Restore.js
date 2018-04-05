@@ -237,7 +237,17 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
          * @param File
          */
         onUploadFileAdded: function (UploadForm, File) {
-            // TODO: check filetype
+            // Check if pgp-encrypted file
+            if (File.type !== "application/pgp-encrypted") {
+                QUI.getMessageHandler().then(function (MH) {
+                    MH.addError(
+                        QUILocale.get(lg, 'error.file.type', {filetype: '.gpg'}),
+                        this.getNextButton().getElm()
+                    );
+                }.bind(this));
+                return;
+            }
+
             this.enableNextButton();
         },
 

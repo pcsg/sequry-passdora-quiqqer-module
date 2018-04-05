@@ -160,7 +160,11 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Update', [
             );
             var StepUpload = this.createStepElement(stepUploadHtml, 'upload');
 
-            this.Form = new UploadForm({maxuploads: 1});
+            this.Form = new UploadForm({
+                maxuploads: 1
+            });
+
+            this.Form.setAttribute('accept', "application/pgp-encrypted");
 
             this.Form.setParam('onfinish', 'package_sequry_passdora_ajax_update_uploadFile');
 
@@ -199,7 +203,17 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Update', [
          * @param File
          */
         onUploadFileAdded: function (UploadForm, File) {
-            // TODO: check filetype
+            // Check if pgp-encrypted file
+            if (File.type !== "application/pgp-encrypted") {
+                QUI.getMessageHandler().then(function (MH) {
+                    MH.addError(
+                        QUILocale.get(lg, 'error.file.type', {filetype: '.gpg'}),
+                        this.getNextButton().getElm()
+                    );
+                }.bind(this));
+                return;
+            }
+
             this.enableNextButton();
         },
 

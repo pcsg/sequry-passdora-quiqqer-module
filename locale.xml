@@ -135,5 +135,10 @@
             <de>Bitte starten Sie Ihre Passdora-Box neu um die System-Aktualisierung abzuschließen.</de>
             <en>Please restart your Passdora-box to complete the system-update.</en>
         </locale>
+
+        <locale name="error.file.type">
+            <de>Ungültige Datei ausgewählt. Es wird eine [filetype] Datei benötigt.</de>
+            <en>Invalid file selected. A [filetype] file is required.</en>
+        </locale>
     </groups>
 </locales>
