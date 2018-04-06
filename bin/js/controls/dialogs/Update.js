@@ -41,7 +41,9 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Update', [
             'abortRestoreClick',
             'buildUploadStep',
             'buildKeyStep',
-            'buildFinishStep'
+            'buildFinishStep',
+            'abortUpdateClick',
+            'abortUpdate'
         ],
 
         options: {
@@ -51,6 +53,8 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Update', [
 
         Form: UploadForm,
 
+        isUpdateRequested: undefined,
+
         initialize: function (options) {
             this.parent(options);
 
@@ -58,7 +62,7 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Update', [
                 'icon'       : 'fa fa-cloud-upload',
                 'autoclose'  : false,
                 'maxHeight'  : 400,
-                'closeButton': false
+                'closeButtonText': QUILocale.get(lg, 'update.panel.button.abort')
             });
 
             this.addEvents({
@@ -68,6 +72,10 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Update', [
                 onShowNextStep    : this.onShowNextStep,
                 onShowPreviousStep: this.onShowPreviousStep
             });
+
+            this._isUpdateRequested().then(function (isUpdateRequested) {
+                this.isUpdateRequested = isUpdateRequested;
+            }.bind(this));
         },
 
 
@@ -78,8 +86,24 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Update', [
          * @param Win
          */
         onOpen: function (Win) {
-            this.addStep(this.buildUploadStep());
+            var CloseButton = this.getCloseButton();
+
+            if (!this.isUpdateRequested) {
+                CloseButton.hide();
+                this.addStep(this.buildUploadStep());
+            }
+
             this.addStep(this.buildFinishStep());
+
+            if (this.isUpdateRequested) {
+                this.getNextButton().hide();
+                this.getPreviousButton().hide();
+
+                this.hideStepIndicators();
+
+                CloseButton.addEventListener('click', this.abortUpdateClick);
+                CloseButton.style.width = 'initial';
+            }
 
             this.disableNextButton();
         },
@@ -121,17 +145,19 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Update', [
          * @param Step
          */
         onShowStep: function (Step) {
-            if (Step.id === 'upload') {
-                this.getNextButton().setAttributes({
-                    textimage: 'fa fa-paper-plane',
-                    text     : QUILocale.get(lg, 'update.panel.button.submit')
-                });
-            } else {
-                this.resetButtons();
-            }
+            if (!this.isUpdateRequested) {
+                if (Step.id === 'upload') {
+                    this.getNextButton().setAttributes({
+                        textimage: 'fa fa-paper-plane',
+                        text     : QUILocale.get(lg, 'update.panel.button.submit')
+                    });
+                } else {
+                    this.resetButtons();
+                }
 
-            if (Step.id === 'finish') {
-                this.submit();
+                if (Step.id === 'finish') {
+                    this.submit();
+                }
             }
         },
 
@@ -188,7 +214,9 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Update', [
         buildFinishStep: function () {
             var stepFinishHtml = Mustache.render(templateFinish, {
                     title      : QUILocale.get(lg, 'update.panel.finish.title'),
-                    description: QUILocale.get(lg, 'update.panel.finish.description')
+                    description: QUILocale.get(lg, 'update.panel.finish.description'),
+                    isUpdateRequested: this.isUpdateRequested,
+                    abortUpdate: QUILocale.get(lg, 'update.panel.finish.abortUpdate')
                 }
             );
             return this.createStepElement(stepFinishHtml, 'finish');
@@ -253,6 +281,73 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Update', [
                     'trustUnknownSources': trustUnknownSources
                 }
             );
+        },
+
+
+        /**
+         * Aborts the update process.
+         * Returns a promise resolving if the abortion was successful.
+         * Rejects if an errors occurs.
+         *
+         * @return Promise
+         */
+        abortUpdate: function () {
+            return new Promise(function (resolve, reject) {
+                QUIAjax.post(
+                    'package_sequry_passdora_ajax_update_abort',
+                    function (result) {
+                        resolve(result);
+                    }, {
+                        'package': 'sequry/passdora',
+                        onError  : reject
+                    }
+                );
+            });
+        },
+
+
+        /**
+         * Fired when clicked on the abort system-restore button
+         */
+        abortUpdateClick: function () {
+            var self = this;
+            this.abortUpdate().then(function (isAborted) {
+                if (isAborted) {
+                    self.close();
+                    QUI.getMessageHandler().then(function (MessageHandler) {
+                        MessageHandler.addSuccess(
+                            QUILocale.get(lg, 'update.abort.success')
+                        );
+                    });
+                } else {
+                    QUI.getMessageHandler().then(function (MessageHandler) {
+                        MessageHandler.addError(
+                            QUILocale.get(lg, 'update.abort.error'),
+                            self.getButton('abort').getElm()
+                        );
+                    });
+                }
+            });
+        },
+
+
+        /**
+         * Returns a promise resolving with a boolean telling if the system-update is currently requested or not
+         *
+         * @return Promise
+         */
+        _isUpdateRequested: function () {
+            return new Promise(function (resolve, reject) {
+                QUIAjax.get(
+                    'package_sequry_passdora_ajax_update_isRequested',
+                    function (result) {
+                        resolve(result);
+                    }, {
+                        'package': 'sequry/passdora',
+                        onError  : reject
+                    }
+                );
+            });
         }
     });
 });

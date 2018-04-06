@@ -1,3 +1,6 @@
 <i class="fa fa-5x fa-check"></i>
-<h2 class="restore-dialog-title">{{title}}</h2>
-<div class="restore-dialog-description">{{description}}</div>
+<h2 class="update-dialog-title">{{title}}</h2>
+<div class="update-dialog-description">{{description}}</div>
+{{#isUpdateRequested}}
+    <p id="update-dialog-abort-message">{{abortUpdate}}</p>
+{{/isUpdateRequested}}

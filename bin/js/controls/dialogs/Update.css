@@ -10,3 +10,8 @@
     text-align: left;
     margin-top: 10px;
 }
+
+#update-dialog-abort-message {
+    color: red;
+    margin-top: 10px;
+}

@@ -126,6 +126,19 @@
             <de>Aktualisieren</de>
             <en>Update</en>
         </locale>
+        <locale name="update.panel.button.abort">
+            <de>System-Aktualisierung abbrechen</de>
+            <en>Abort System-Update</en>
+        </locale>
+
+        <locale name="update.abort.success">
+            <de>System-Aktualisierung wurde erfolgreich abgebrochen.</de>
+            <en>System-Update was successfully cancelled.</en>
+        </locale>
+        <locale name="update.abort.error">
+            <de>Beim Abbrechen der System-Aktualisierung ist ein Fehler aufgetreten.</de>
+            <en>An error occurred trying to abort the system-update.</en>
+        </locale>
 
         <locale name="update.panel.finish.title">
             <de>System-Aktualisierung erfolgreich initialisiert!</de>
@@ -134,6 +147,10 @@
         <locale name="update.panel.finish.description">
             <de>Bitte starten Sie Ihre Passdora-Box neu um die System-Aktualisierung abzuschließen.</de>
             <en>Please restart your Passdora-box to complete the system-update.</en>
+        </locale>
+        <locale name="update.panel.finish.abortUpdate">
+            <de>Wenn Sie die System-Aktualisierung abbrechen wollen, klicken Sie auf den Button unten.</de>
+            <en>If you want to abort the system-update, click the button below.</en>
         </locale>
 
         <locale name="error.file.type">
