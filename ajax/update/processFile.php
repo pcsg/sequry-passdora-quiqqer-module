@@ -22,7 +22,7 @@ QUI::$Ajax->registerFunction(
             );
         }
 
-        if (!Update::decryptFile()) {
+        if (!Update::decryptFile($trustUnknownSources)) {
             return array(
                 "error"   => true,
                 "message" => QUI::getLocale()->get('sequry/passdora', 'error.update.decrypt')

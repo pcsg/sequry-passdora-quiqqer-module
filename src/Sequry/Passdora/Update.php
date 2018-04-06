@@ -83,16 +83,26 @@ class Update
      * Overwrites existing files.
      * Returns true on success, false otherwise
      *
+     * @param boolean $trustUnknownSources - Verify the signature of the file?
+     *
      * @throws QUI\Exception
      *
      * @return bool - true on success, false otherwise
      */
-    public static function decryptFile()
+    public static function decryptFile($trustUnknownSources = false)
     {
         $fileSigned   = self::getDirectory() . self::FILE_NAME_SIGNED;
         $fileUnsigned = self::getDirectory() . self::FILE_NAME_UNSIGNED;
 
-        exec("gpg --batch --yes --output $fileUnsigned --decrypt $fileSigned", $output, $returnCode);
+        $cmd = "gpg ";
+
+        if ($trustUnknownSources) {
+            $cmd .= "--trust-model always ";
+        }
+
+        $cmd .= "--batch --yes --output $fileUnsigned --decrypt $fileSigned";
+
+        exec($cmd, $output, $returnCode);
 
         return ($returnCode == 0);
     }
