@@ -39,6 +39,7 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Stepped', [
             'disablePreviousButton',
             'getNextButton',
             'getPreviousButton',
+            'getCloseButton',
             'getStepIndicators',
             'getSteps',
             'hideStepIndicators',
@@ -246,6 +247,11 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Stepped', [
          */
         getPreviousButton: function () {
             return this.getButton('previous');
+        },
+
+
+        getCloseButton: function () {
+            return this.$Buttons.getElement('[name=close]');
         },
 
 
