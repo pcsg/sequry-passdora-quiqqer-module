@@ -1,8 +1,8 @@
-#restore-key {
+#restore-key-control {
     text-align: center;
 }
 
-#restore-key.disabled {
+#restore-key-control.disabled {
     opacity: 0.5;
 }
 
