@@ -1,3 +1,6 @@
 <i class="fa fa-5x fa-check"></i>
 <h2 class="restore-dialog-title">{{title}}</h2>
 <div class="restore-dialog-description">{{description}}</div>
+{{#isRestoreRequested}}
+    <p id="restore-dialog-abort-message">{{abortRestore}}</p>
+{{/isRestoreRequested}}

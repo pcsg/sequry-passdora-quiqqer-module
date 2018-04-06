@@ -5,3 +5,8 @@
 .restore-dialog-title {
     margin-bottom: 7px;
 }
+
+#restore-dialog-abort-message {
+    color: red;
+    margin-top: 10px;
+}

@@ -55,14 +55,20 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
 
         RestoreKey: RestoreKeyInput,
 
+        isRestoreRequested: false,
+
         initialize: function (options) {
             this.parent(options);
 
+            this._isRestoreRequested().then(function (isRestoreRequested) {
+                this.isRestoreRequested = isRestoreRequested;
+            }.bind(this));
+
             this.setAttributes({
-                'icon'       : 'fa fa-undo',
-                'autoclose'  : false,
-                'maxHeight'  : 400,
-                'closeButton': false
+                'icon'           : 'fa fa-undo',
+                'autoclose'      : false,
+                'maxHeight'      : 400,
+                'closeButtonText': QUILocale.get(lg, 'restore.panel.button.abort')
             });
 
             this.addEvents({
@@ -82,13 +88,27 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
          * @param Win
          */
         onOpen: function (Win) {
-            this.addStep(this.buildUploadStep());
-            this.addStep(this.buildKeyStep());
-            this.addStep(this.buildFinishStep());
+            var CloseButton = this.getCloseButton();
+
+            if (!this.isRestoreRequested) {
+                CloseButton.hide();
+                this.addStep(this.buildUploadStep());
+                this.addStep(this.buildKeyStep());
+            }
+
+            this.addStep(this.buildFinishStep(this.isRestoreRequested));
 
             this.disableNextButton();
 
-            // TODO: if restore already requested, display something else
+            if (this.isRestoreRequested) {
+                this.getNextButton().hide();
+                this.getPreviousButton().hide();
+
+                this.hideStepIndicators();
+
+                CloseButton.addEventListener('click', this.abortRestoreClick);
+                CloseButton.style.width = 'initial';
+            }
         },
 
 
@@ -128,20 +148,22 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
          * @param Step - the step that is now shown
          */
         onShowStep: function (Step) {
-            this.resetButtons();
-
-            var NextButton = this.getNextButton();
-            if (Step.id === 'key') {
-                NextButton.setAttributes({
-                    textimage: 'fa fa-paper-plane',
-                    text     : QUILocale.get(lg, 'restore.panel.button.submit')
-                });
-            } else {
+            if (!this.isRestoreRequested) {
                 this.resetButtons();
-            }
 
-            if (Step.id === 'finish') {
-                this.submit();
+                var NextButton = this.getNextButton();
+                if (Step.id === 'key') {
+                    NextButton.setAttributes({
+                        textimage: 'fa fa-paper-plane',
+                        text     : QUILocale.get(lg, 'restore.panel.button.submit')
+                    });
+                } else {
+                    this.resetButtons();
+                }
+
+                if (Step.id === 'finish') {
+                    this.submit();
+                }
             }
         },
 
@@ -219,10 +241,12 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
          *
          * @return {Element}
          */
-        buildFinishStep: function () {
+        buildFinishStep: function (isRestoreRequested) {
             var stepFinishHtml = Mustache.render(templateFinish, {
                     title      : QUILocale.get(lg, 'restore.panel.finish.title'),
-                    description: QUILocale.get(lg, 'restore.panel.finish.description')
+                    description: QUILocale.get(lg, 'restore.panel.finish.description'),
+                    isRestoreRequested: isRestoreRequested,
+                    abortRestore: QUILocale.get(lg, 'restore.panel.finish.abortRestore')
                 }
             );
             return this.createStepElement(stepFinishHtml, 'finish');
@@ -295,7 +319,7 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
          *
          * @return Promise
          */
-        isRestoreRequested: function () {
+        _isRestoreRequested: function () {
             return new Promise(function (resolve, reject) {
                 QUIAjax.get(
                     'package_sequry_passdora_ajax_isRestoreRequested',
