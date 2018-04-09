@@ -16,11 +16,6 @@ use QUI\Utils\System\File;
 class Restore
 {
     /**
-     * The directory where uploaded restore files are stored
-     */
-    const DIRECTORY = CMS_DIR . "media/passdora_restore_files/";
-
-    /**
      * The name that uploaded restore files get assigned (should be encrypted)
      */
     const FILE_ENCRYPTED = "restore.tgz.gpg";
@@ -32,15 +27,23 @@ class Restore
 
 
     /**
-     * Creates the directory where uploaded restore files will be stored.
-     * Returns true on success, false otherwise.
+     * Returns the absolute path to the directory where the restore-files are stored.
+     * If the directory doesn't exist yet it is created.
      *
-     * @return boolean
+     * @return string
+     *
      */
-    public static function createDirectory()
+    public static function getDirectory()
     {
-        // mkdir function checks if directory already exists so no need to do that here
-        return File::mkdir(self::DIRECTORY);
+        try {
+            $path = QUI::getPackage('sequry/passdora')->getVarDir() . 'restore/';
+        } catch (QUI\Exception $exception) {
+            return false;
+        }
+
+        File::mkdir($path);
+
+        return $path;
     }
 
 
@@ -58,13 +61,11 @@ class Restore
     {
         $filePath = $File->getAttribute('filepath');
 
-        $target = self::DIRECTORY . self::FILE_ENCRYPTED;
+        $target = self::getDirectory() . self::FILE_ENCRYPTED;
 
         if (!file_exists($filePath)) {
             return false;
         }
-
-        self::createDirectory();
 
         if (file_exists($target)) {
             File::unlink($target);
@@ -85,8 +86,8 @@ class Restore
     public static function decryptFile($restoreKey)
     {
         $restoreKey    = QUI\Utils\Security\Orthos::clearShellArg($restoreKey);
-        $fileEncrypted = self::DIRECTORY . self::FILE_ENCRYPTED;
-        $fileDecrypted = self::DIRECTORY . self::FILE_DECRYPTED;
+        $fileEncrypted = self::getDirectory() . self::FILE_ENCRYPTED;
+        $fileDecrypted = self::getDirectory() . self::FILE_DECRYPTED;
 
         // Decrypt the file
         exec(
@@ -102,11 +103,14 @@ class Restore
     /**
      * Cleans up the restore directory (removes all files in it)
      *
+     * @throws QUI\Exception
      */
     public static function cleanupDirectory()
     {
-        File::deleteDir(self::DIRECTORY);
-        self::createDirectory();
+        self::removeDirectory();
+
+        // Creates the directory again;
+        self::getDirectory();
     }
 
 
@@ -117,7 +121,7 @@ class Restore
      */
     public static function removeDirectory()
     {
-        File::unlink(self::DIRECTORY);
+        File::unlink(self::getDirectory());
     }
 
 
