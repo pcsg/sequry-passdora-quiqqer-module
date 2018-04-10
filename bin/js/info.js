@@ -11,6 +11,7 @@ var enableConfirmButton = function () {
 };
 
 var handleAfterPrint = function (event) {
+    clearInterval(ConfirmInterval);
     enableConfirmButton();
 };
 
