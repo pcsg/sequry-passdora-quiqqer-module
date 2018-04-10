@@ -86,9 +86,12 @@
             <button id="printButton"><i class="fa fa-print"></i> Print</button>
         </p>
         <p>
-            <button id="confirmButton" class="primary"
-                    title="Make sure you read the notice above and stored the passwords"><i class="fa fa-check"></i>
-                Confirm
+            <button id="button-next"
+                    class="primary"
+                    disabled
+                    title="Make sure you read the notice above and stored the passwords">
+                <i class="fa fa-chevron-right"></i>
+                Continue (30)
             </button>
         </p>
     </div>
