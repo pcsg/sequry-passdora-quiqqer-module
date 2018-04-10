@@ -113,4 +113,5 @@
     </p>
 </div>
 
+<script type="text/javascript" src="/packages/sequry/passdora/bin/js/general.js"></script>
 <script type="text/javascript" src="/packages/sequry/passdora/bin/js/info.js"></script>
