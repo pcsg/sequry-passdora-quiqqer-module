@@ -11,7 +11,7 @@ class CodeUtil
 
     public static function isValid($code)
     {
-        return (SessionUtil::getCode() === $code);
+        return (SessionUtil::getCode() == $code);
     }
 
     public static function showOnDisplay($code)
