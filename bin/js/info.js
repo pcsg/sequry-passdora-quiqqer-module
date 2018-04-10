@@ -24,7 +24,7 @@ var handleCountdownZero = function () {
 
 var handleConfirmButtonClick = function () {
     if (confirmPasswordsCopied()) {
-        window.location.replace('/setup');
+        window.location.replace(window.location.toString().replace('/info','/setup'));
     }
 };
 
