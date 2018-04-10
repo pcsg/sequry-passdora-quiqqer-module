@@ -59,7 +59,7 @@ var submitSetup = function () {
                 }
             } else {
                 console.error('request failed');
-                // TODO: do something
+                handleAuthError('Something went wrong. Please try again later.');
             }
         }
     };
