@@ -6,41 +6,30 @@ use QUI;
 use QUI\Utils\System\File;
 
 /**
- * Class Restore
+ * Class Update
  * Handles files for the restore process
  *
  * @package Sequry\Passdora
  *
  * @author PCSG (Jan Wennrich)
  */
-class Restore
+class Update
 {
-    /**
-     * The name that uploaded restore files get assigned (should be encrypted)
-     */
-    const FILE_ENCRYPTED = "restore.tgz.gpg";
+    const FILE_NAME_SIGNED = "update.tgz.gpg";
+
+    const FILE_NAME_UNSIGNED = "update.tgz";
 
     /**
-     * The name that decrypted restore files get assigned
-     */
-    const FILE_DECRYPTED = "restore.tgz";
-
-
-    /**
-     * Returns the absolute path to the directory where the restore-files are stored.
+     * Returns the absolute path to the directory where update files are stored.
      * If the directory doesn't exist yet it is created.
      *
      * @return string
      *
+     * @throws QUI\Exception
      */
     public static function getDirectory()
     {
-        try {
-            $path = QUI::getPackage('sequry/passdora')->getVarDir() . 'restore/';
-        } catch (QUI\Exception $exception) {
-            return false;
-        }
-
+        $path = QUI::getPackage('sequry/passdora')->getVarDir() . 'update/';
         File::mkdir($path);
 
         return $path;
@@ -48,7 +37,7 @@ class Restore
 
 
     /**
-     * Moves a file to the restore directory and renames it accordingly.
+     * Moves a file to the update directory.
      * Returns true on success, otherwise throws an exception.
      *
      * @param \QUI\QDOM $File
@@ -60,43 +49,62 @@ class Restore
     public static function moveToDirectory($File)
     {
         $filePath = $File->getAttribute('filepath');
-
-        $target = self::getDirectory() . self::FILE_ENCRYPTED;
+        $target   = self::getDirectory() . self::FILE_NAME_SIGNED;
 
         if (!file_exists($filePath)) {
-            return false;
+            throw new QUI\Exception('File to move could not be found at: "' . $filePath . '"');
         }
 
-        if (file_exists($target)) {
-            File::unlink($target);
-        }
+        File::unlink($target);
 
         return File::move($filePath, $target);
     }
 
 
     /**
-     * Decrypts the file in the restore directory using the given restore key
+     * Verifies if the update-file has a valid signature
      * Returns true on success, false otherwise
      *
-     * @param $restoreKey
+     * @throws QUI\Exception
      *
-     * @return boolean
+     * @return boolean - true on success, false otherwise
      */
-    public static function decryptFile($restoreKey)
+    public static function verifyFile()
     {
-        $restoreKey    = QUI\Utils\Security\Orthos::clearShellArg($restoreKey);
-        $fileEncrypted = self::getDirectory() . self::FILE_ENCRYPTED;
-        $fileDecrypted = self::getDirectory() . self::FILE_DECRYPTED;
+        $file = self::getDirectory() . self::FILE_NAME_SIGNED;
+        exec("gpg --verify $file", $output, $returnCode);
 
-        // Decrypt the file
-        exec(
-            "gpg --batch --passphrase $restoreKey -o $fileDecrypted $fileEncrypted",
-            $output,
-            $returnCode
-        );
+        return ($returnCode == 0);
+    }
 
-        return $returnCode == 0;
+
+    /**
+     * "Decrypts" the update-file by removing the signature, so it's usable again.
+     * Overwrites existing files.
+     * Returns true on success, false otherwise
+     *
+     * @param boolean $trustUnknownSources - Verify the signature of the file?
+     *
+     * @throws QUI\Exception
+     *
+     * @return bool - true on success, false otherwise
+     */
+    public static function decryptFile($trustUnknownSources = false)
+    {
+        $fileSigned   = self::getDirectory() . self::FILE_NAME_SIGNED;
+        $fileUnsigned = self::getDirectory() . self::FILE_NAME_UNSIGNED;
+
+        $cmd = "gpg ";
+
+        if ($trustUnknownSources) {
+            $cmd .= "--trust-model always ";
+        }
+
+        $cmd .= "--batch --yes --output $fileUnsigned --decrypt $fileSigned";
+
+        exec($cmd, $output, $returnCode);
+
+        return ($returnCode == 0);
     }
 
 
@@ -109,7 +117,7 @@ class Restore
     {
         self::removeDirectory();
 
-        // Creates the directory again;
+        // Creates the directory again
         self::getDirectory();
     }
 
@@ -133,7 +141,7 @@ class Restore
     public static function setRequested()
     {
         $Config = QUI::getPackage('sequry/passdora')->getConfig();
-        $Config->set('restore', 'is_requested', 1);
+        $Config->set('update', 'is_requested', 1);
         $Config->save();
     }
 
@@ -148,7 +156,7 @@ class Restore
         try {
             $Config = QUI::getPackage('sequry/passdora')->getConfig();
 
-            return $Config->get('restore', 'is_requested') == 1;
+            return $Config->get('update', 'is_requested') == 1;
         } catch (QUI\Exception $exception) {
         }
 
@@ -166,7 +174,7 @@ class Restore
     {
         try {
             $Config = QUI::getPackage('sequry/passdora')->getConfig();
-            $Config->set('restore', 'is_requested', 0);
+            $Config->set('update', 'is_requested', 0);
             $Config->save();
 
             self::cleanupDirectory();

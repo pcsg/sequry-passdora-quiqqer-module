@@ -1,32 +1,30 @@
 /**
- * A dialog used to upload system-restore-files
+ * Displays a dialog to upload system-update-files
  *
- * @module package/sequry/passdora/bin/js/controls/dialogs/Restore
+ * @module package/sequry/passdora/bin/js/controls/dialogs/Update
  * @author www.pcsg.de (Jan Wennrich)
  *
  */
-define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
+define('package/sequry/passdora/bin/js/controls/dialogs/Update', [
 
     'qui/QUI',
     'controls/upload/Form',
     'package/sequry/passdora/bin/js/controls/dialogs/Stepped',
-    'package/sequry/passdora/bin/js/controls/inputs/RestoreKey',
     'Ajax',
     'Locale',
     'Mustache',
-    'text!package/sequry/passdora/bin/js/controls/dialogs/restore-templates/steps/finish.html',
-    'text!package/sequry/passdora/bin/js/controls/dialogs/restore-templates/steps/key.html',
-    'text!package/sequry/passdora/bin/js/controls/dialogs/restore-templates/steps/upload.html',
-    'css!package/sequry/passdora/bin/js/controls/dialogs/Restore.css'
+    'text!package/sequry/passdora/bin/js/controls/dialogs/update-templates/steps/finish.html',
+    'text!package/sequry/passdora/bin/js/controls/dialogs/update-templates/steps/upload.html',
+    'css!package/sequry/passdora/bin/js/controls/dialogs/Update.css'
 
-], function (QUI, UploadForm, SteppedDialog, RestoreKeyInput, QUIAjax, QUILocale, Mustache, templateFinish, templateKey, templateUpload) {
+], function (QUI, UploadForm, SteppedDialog, QUIAjax, QUILocale, Mustache, templateFinish, templateUpload) {
     "use strict";
 
     var lg = 'sequry/passdora';
 
     return new Class({
         Extends: SteppedDialog,
-        Type   : 'package/sequry/passdora/bin/js/controls/dialogs/Restore',
+        Type   : 'package/sequry/passdora/bin/js/controls/dialogs/Update',
 
         Binds: [
             'onOpen',
@@ -43,32 +41,28 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
             'abortRestoreClick',
             'buildUploadStep',
             'buildKeyStep',
-            'buildFinishStep'
+            'buildFinishStep',
+            'abortUpdateClick',
+            'abortUpdate'
         ],
 
         options: {
-            title: QUILocale.get(lg, 'restore.panel.title'),
-            icon : 'fa fa-undo'
+            title: QUILocale.get(lg, 'update.panel.title'),
+            icon : 'fa fa-cloud-upload'
         },
 
         Form: UploadForm,
 
-        RestoreKey: RestoreKeyInput,
-
-        isRestoreRequested: false,
+        isUpdateRequested: undefined,
 
         initialize: function (options) {
             this.parent(options);
 
-            this._isRestoreRequested().then(function (isRestoreRequested) {
-                this.isRestoreRequested = isRestoreRequested;
-            }.bind(this));
-
             this.setAttributes({
-                'icon'           : 'fa fa-undo',
-                'autoclose'      : false,
-                'maxHeight'      : 400,
-                'closeButtonText': QUILocale.get(lg, 'restore.panel.button.abort')
+                'icon'       : 'fa fa-cloud-upload',
+                'autoclose'  : false,
+                'maxHeight'  : 400,
+                'closeButtonText': QUILocale.get(lg, 'update.panel.button.abort')
             });
 
             this.addEvents({
@@ -78,6 +72,10 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
                 onShowNextStep    : this.onShowNextStep,
                 onShowPreviousStep: this.onShowPreviousStep
             });
+
+            this._isUpdateRequested().then(function (isUpdateRequested) {
+                this.isUpdateRequested = isUpdateRequested;
+            }.bind(this));
         },
 
 
@@ -90,30 +88,29 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
         onOpen: function (Win) {
             var CloseButton = this.getCloseButton();
 
-            if (!this.isRestoreRequested) {
+            if (!this.isUpdateRequested) {
                 CloseButton.hide();
                 this.addStep(this.buildUploadStep());
-                this.addStep(this.buildKeyStep());
             }
 
-            this.addStep(this.buildFinishStep(this.isRestoreRequested));
+            this.addStep(this.buildFinishStep());
 
-            this.disableNextButton();
-
-            if (this.isRestoreRequested) {
+            if (this.isUpdateRequested) {
                 this.getNextButton().hide();
                 this.getPreviousButton().hide();
 
                 this.hideStepIndicators();
 
-                CloseButton.addEventListener('click', this.abortRestoreClick);
+                CloseButton.addEventListener('click', this.abortUpdateClick);
                 CloseButton.style.width = 'initial';
             }
+
+            this.disableNextButton();
         },
 
 
         /**
-         * Called when this dialog is closed.
+         * Fired when this dialog is closed.
          * Destroys this control to reset all variables and controls
          */
         onClose: function () {
@@ -123,9 +120,9 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
 
 
         /**
-         * Called when a next step is shown
+         * Called when the next step is shown
          *
-         * @param Step - the previous step that is now shown
+         * @param Step
          */
         onShowNextStep: function (Step) {
             this.disableNextButton();
@@ -133,9 +130,9 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
 
 
         /**
-         * Called when a previous step is shown
+         * Called when the previous step is shown
          *
-         * @param Step - the next step that is now shown
+         * @param Step
          */
         onShowPreviousStep: function (Step) {
             this.enableNextButton();
@@ -145,17 +142,14 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
         /**
          * Called when any step is shown
          *
-         * @param Step - the step that is now shown
+         * @param Step
          */
         onShowStep: function (Step) {
-            if (!this.isRestoreRequested) {
-                this.resetButtons();
-
-                var NextButton = this.getNextButton();
-                if (Step.id === 'key') {
-                    NextButton.setAttributes({
+            if (!this.isUpdateRequested) {
+                if (Step.id === 'upload') {
+                    this.getNextButton().setAttributes({
                         textimage: 'fa fa-paper-plane',
-                        text     : QUILocale.get(lg, 'restore.panel.button.submit')
+                        text     : QUILocale.get(lg, 'update.panel.button.submit')
                     });
                 } else {
                     this.resetButtons();
@@ -172,7 +166,7 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
          * Submits the form.
          */
         submit: function () {
-            this.getButton('previous').disable();
+            this.disablePreviousButton();
             this.Loader.show();
             this.Form.submit();
         },
@@ -185,15 +179,20 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
          */
         buildUploadStep: function () {
             var stepUploadHtml = Mustache.render(templateUpload, {
-                    title      : QUILocale.get(lg, 'restore.panel.file.title'),
-                    description: QUILocale.get(lg, 'restore.panel.file.description')
+                    title         : QUILocale.get(lg, 'update.panel.file.title'),
+                    description   : QUILocale.get(lg, 'update.panel.file.description'),
+                    unknownSources: QUILocale.get(lg, 'update.panel.file.trustUnknownSources')
                 }
             );
             var StepUpload = this.createStepElement(stepUploadHtml, 'upload');
 
-            this.Form = new UploadForm({maxuploads: 1});
+            this.Form = new UploadForm({
+                maxuploads: 1
+            });
 
-            this.Form.setParam('onfinish', 'package_sequry_passdora_ajax_upload');
+            this.Form.setAttribute('accept', "application/pgp-encrypted");
+
+            this.Form.setParam('onfinish', 'package_sequry_passdora_ajax_update_uploadFile');
 
             this.Form.addEvents({
                 onComplete    : this.onUploadComplete,
@@ -201,38 +200,9 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
                 onInputDestroy: this.onUploadFileRemoved
             });
 
-            this.Form.inject(StepUpload);
+            this.Form.inject(StepUpload.getElementById('update-upload-form'));
 
             return StepUpload;
-        },
-
-
-        /**
-         * Builds and returns the restore-key-input step
-         *
-         * @return {Element}
-         */
-        buildKeyStep: function () {
-            var stepKeyHtml = Mustache.render(templateKey, {
-                    title      : QUILocale.get(lg, 'restore.panel.key.title'),
-                    description: QUILocale.get(lg, 'restore.panel.key.description')
-                }
-            );
-            var StepKey = this.createStepElement(stepKeyHtml, 'key');
-
-            this.RestoreKey = new RestoreKeyInput();
-
-            this.RestoreKey.addEvent('onInputFull', function () {
-                this.enableNextButton();
-            }.bind(this));
-
-            this.RestoreKey.addEvent('onInput', function () {
-                this.disableNextButton();
-            }.bind(this));
-
-            this.RestoreKey.inject(StepKey);
-
-            return StepKey;
         },
 
 
@@ -241,12 +211,12 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
          *
          * @return {Element}
          */
-        buildFinishStep: function (isRestoreRequested) {
+        buildFinishStep: function () {
             var stepFinishHtml = Mustache.render(templateFinish, {
-                    title      : QUILocale.get(lg, 'restore.panel.finish.title'),
-                    description: QUILocale.get(lg, 'restore.panel.finish.description'),
-                    isRestoreRequested: isRestoreRequested,
-                    abortRestore: QUILocale.get(lg, 'restore.panel.finish.abortRestore')
+                    title      : QUILocale.get(lg, 'update.panel.finish.title'),
+                    description: QUILocale.get(lg, 'update.panel.finish.description'),
+                    isUpdateRequested: this.isUpdateRequested,
+                    abortUpdate: QUILocale.get(lg, 'update.panel.finish.abortUpdate')
                 }
             );
             return this.createStepElement(stepFinishHtml, 'finish');
@@ -254,7 +224,7 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
 
 
         /**
-         * Fired when a file is added to the upload form.
+         * Called when a file is added to the upload form.
          * Enables the next-button.
          *
          * @param UploadForm
@@ -277,7 +247,7 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
 
 
         /**
-         * Fired when a file is removed from the upload form.
+         * Called when a file is removed from the upload form.
          * Disables the next-button.
          */
         onUploadFileRemoved: function () {
@@ -286,18 +256,19 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
 
 
         /**
-         * Fired when the file-upload is complete.
+         * Called when the file-upload is complete.
          */
         onUploadComplete: function () {
             var self = this;
+            var trustUnknownSources = self.getElm().getElement('#trust-unknown-sources').checked ? 1 : 0;
+
             QUIAjax.post(
-                'package_sequry_passdora_ajax_processRestoreFile',
+                'package_sequry_passdora_ajax_update_processFile',
                 function (result) {
                     self.Loader.hide();
                     if (result.error === true) {
                         self.disableNextButton();
                         self.showPreviousStep();
-//                        self.enablePreviousButton();
                         QUI.getMessageHandler().then(function (MH) {
                             MH.addError(
                                 result.message,
@@ -306,45 +277,24 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
                         });
                     }
                 }, {
-                    'package'   : 'sequry/passdora',
-                    'restoreKey': self.RestoreKey.getInput()
+                    'package'            : 'sequry/passdora',
+                    'trustUnknownSources': trustUnknownSources
                 }
             );
         },
 
 
         /**
-         * Returns a promise resolving with a boolean telling if the system-restore is currently requested or not
-         *
-         *
-         * @return Promise
-         */
-        _isRestoreRequested: function () {
-            return new Promise(function (resolve, reject) {
-                QUIAjax.get(
-                    'package_sequry_passdora_ajax_isRestoreRequested',
-                    function (result) {
-                        resolve(result);
-                    }, {
-                        'package': 'sequry/passdora',
-                        onError  : reject
-                    }
-                );
-            });
-        },
-
-
-        /**
-         * Aborts the restore process.
+         * Aborts the update process.
          * Returns a promise resolving if the abortion was successful.
          * Rejects if an errors occurs.
          *
          * @return Promise
          */
-        abortRestore: function () {
+        abortUpdate: function () {
             return new Promise(function (resolve, reject) {
                 QUIAjax.post(
-                    'package_sequry_passdora_ajax_abortRestore',
+                    'package_sequry_passdora_ajax_update_abort',
                     function (result) {
                         resolve(result);
                     }, {
@@ -359,24 +309,44 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Restore', [
         /**
          * Fired when clicked on the abort system-restore button
          */
-        abortRestoreClick: function () {
+        abortUpdateClick: function () {
             var self = this;
-            this.abortRestore().then(function (isAborted) {
+            this.abortUpdate().then(function (isAborted) {
                 if (isAborted) {
                     self.close();
                     QUI.getMessageHandler().then(function (MessageHandler) {
                         MessageHandler.addSuccess(
-                            QUILocale.get(lg, 'restore.abort.success')
+                            QUILocale.get(lg, 'update.abort.success')
                         );
                     });
                 } else {
                     QUI.getMessageHandler().then(function (MessageHandler) {
                         MessageHandler.addError(
-                            QUILocale.get(lg, 'restore.abort.error'),
+                            QUILocale.get(lg, 'update.abort.error'),
                             self.getButton('abort').getElm()
                         );
                     });
                 }
+            });
+        },
+
+
+        /**
+         * Returns a promise resolving with a boolean telling if the system-update is currently requested or not
+         *
+         * @return Promise
+         */
+        _isUpdateRequested: function () {
+            return new Promise(function (resolve, reject) {
+                QUIAjax.get(
+                    'package_sequry_passdora_ajax_update_isRequested',
+                    function (result) {
+                        resolve(result);
+                    }, {
+                        'package': 'sequry/passdora',
+                        onError  : reject
+                    }
+                );
             });
         }
     });

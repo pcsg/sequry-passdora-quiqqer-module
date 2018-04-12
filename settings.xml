@@ -27,6 +27,20 @@
                     <defaultvalue>0</defaultvalue>
                 </conf>
             </section>
+
+            <section name="setup">
+                <conf name="is_requested">
+                    <type><![CDATA[boolean]]></type>
+                    <defaultvalue>0</defaultvalue>
+                </conf>
+            </section>
+
+            <section name="update">
+                <conf name="is_requested">
+                    <type><![CDATA[boolean]]></type>
+                    <defaultvalue>0</defaultvalue>
+                </conf>
+            </section>
         </config>
 
         <window>

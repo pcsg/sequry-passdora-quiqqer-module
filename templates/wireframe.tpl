@@ -9,8 +9,6 @@
     <link rel="stylesheet" href="/packages/sequry/passdora/bin/css/style.css">
 
     <link href='//fonts.googleapis.com/css?family=Open+Sans:300,400,600,800' rel='stylesheet' type='text/css'>
-
-    {$header}
 </head>
 <body>
 <div id="loader-overlay" class="hidden">

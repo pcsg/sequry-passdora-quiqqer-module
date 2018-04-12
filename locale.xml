@@ -20,10 +20,27 @@
             <de>System-Wiederherstellung</de>
             <en>System-Restore</en>
         </locale>
+        <locale name="menu.apps.passdora.update.title">
+            <de>System-Aktualisierung</de>
+            <en>System-Update</en>
+        </locale>
+        <locale name="menu.apps.passdora.status.title">
+            <de>System-Status</de>
+            <en>System-Status</en>
+        </locale>
 
         <locale name="error.restore.decrypt">
             <de>Fehler beim Entschlüsseln der Backup-Datei: Ungültige Backup-Datei oder Restore-Key.</de>
             <en>Error decrypting the backup-file: Invalid backup-file or restore-key.</en>
+        </locale>
+
+        <locale name="error.update.verify">
+            <de>Die Echtheit der Aktualisierungs-Datei konnte nicht verifiziert werden. Wählen Sie "Unbekannten Quellen vertrauen" um dies zu ignorieren.</de>
+            <en>The authenticity of the update-file could not be verified. Select "Trust unknown sources" to ignore this.</en>
+        </locale>
+        <locale name="error.update.decrypt">
+            <de>Die Aktualisierungs-Datei ist fehlerhaft oder wurde manipuliert. Bitte versuchen Sie es erneut, oder wählen sie eine andere Datei aus.</de>
+            <en>The update-file is damaged or was manipulated. Please try again or choose another file.</en>
         </locale>
     </groups>
 
@@ -88,6 +105,68 @@
         <locale name="restore.abort.error">
             <de>Beim Abbrechen der System-Wiederherstellung ist ein Fehler aufgetreten.</de>
             <en>An error occurred trying to abort the system-restore.</en>
+        </locale>
+
+
+        <locale name="update.panel.title">
+            <de>System-Aktualisierung</de>
+            <en>System-Update</en>
+        </locale>
+
+        <locale name="update.panel.file.title">
+            <de>Aktualisierungs-Datei</de>
+            <en>Update-File</en>
+        </locale>
+        <locale name="update.panel.file.description">
+            <de>Bitte wählen Sie eine Aktualisierungs-Datei aus, die genutzt werden soll um das System zu aktualisieren:</de>
+            <en>Please select an update-file which should be used to update the system:</en>
+        </locale>
+        <locale name="update.panel.file.trustUnknownSources">
+            <de>Unbekannten Quellen vertrauen?</de>
+            <en>Trust unknown sources?</en>
+        </locale>
+
+        <locale name="update.panel.button.submit">
+            <de>Aktualisieren</de>
+            <en>Update</en>
+        </locale>
+        <locale name="update.panel.button.abort">
+            <de>System-Aktualisierung abbrechen</de>
+            <en>Abort System-Update</en>
+        </locale>
+
+        <locale name="update.abort.success">
+            <de>System-Aktualisierung wurde erfolgreich abgebrochen.</de>
+            <en>System-Update was successfully cancelled.</en>
+        </locale>
+        <locale name="update.abort.error">
+            <de>Beim Abbrechen der System-Aktualisierung ist ein Fehler aufgetreten.</de>
+            <en>An error occurred trying to abort the system-update.</en>
+        </locale>
+
+        <locale name="update.panel.finish.title">
+            <de>System-Aktualisierung erfolgreich initialisiert!</de>
+            <en>System-Update successfully initialized!</en>
+        </locale>
+        <locale name="update.panel.finish.description">
+            <de>Bitte starten Sie Ihre Passdora-Box neu um die System-Aktualisierung abzuschließen.</de>
+            <en>Please restart your Passdora-box to complete the system-update.</en>
+        </locale>
+        <locale name="update.panel.finish.abortUpdate">
+            <de>Wenn Sie die System-Aktualisierung abbrechen wollen, klicken Sie auf den Button unten.</de>
+            <en>If you want to abort the system-update, click the button below.</en>
+        </locale>
+
+
+        <locale name="status.panel.title">
+            <de>System-Status</de>
+            <en>System-Status</en>
+        </locale>
+
+
+        <locale name="error.file.type">
+            <de>Ungültige Datei ausgewählt. Es wird eine [filetype] Datei benötigt.</de>
+            <en>Invalid file selected. A [filetype] file is required.</en>
         </locale>
     </groups>
 </locales>

@@ -12,10 +12,9 @@ define('package/sequry/passdora/bin/js/controls/inputs/RestoreKey', [
 
     'qui/QUI',
     'qui/controls/Control',
-    'Mustache',
-    'text!package/sequry/passdora/bin/js/controls/inputs/RestoreKey.html'
+    'css!package/sequry/passdora/bin/js/controls/inputs/RestoreKey.css'
 
-], function (QUI, QUIControl, Mustache, template) {
+], function (QUI, QUIControl) {
     "use strict";
 
     var lg = 'sequry/passdora';
@@ -63,7 +62,7 @@ define('package/sequry/passdora/bin/js/controls/inputs/RestoreKey', [
             var self = this;
 
             var Elm = new Element('div', {
-                'id': 'restore-key-input'
+                'id': 'restore-key-control'
             });
 
             var blocksAmount = this.getAttribute('blocks');
@@ -172,7 +171,7 @@ define('package/sequry/passdora/bin/js/controls/inputs/RestoreKey', [
          * Disables all input elements
          */
         disable: function () {
-            this.getElm().getElementById('restore-key').addClass('disabled');
+            this.getElm().addClass('disabled');
 
             this.forEachRestoreInput(function (Input) {
                 Input.readOnly = true;
@@ -184,7 +183,7 @@ define('package/sequry/passdora/bin/js/controls/inputs/RestoreKey', [
          * Enables all input elements
          */
         enable: function () {
-            this.getElm().getElementById('restore-key').removeClass('disabled');
+            this.getElm().removeClass('disabled');
 
             this.forEachRestoreInput(function (Input) {
                 Input.readOnly = false;

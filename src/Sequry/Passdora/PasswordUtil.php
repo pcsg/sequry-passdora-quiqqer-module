@@ -4,9 +4,9 @@ namespace Sequry\Passdora;
 
 class PasswordUtil
 {
-    const FILE_PASSWORDS = '/etc/passdora_passwords.ini.php';
+    const FILE_PASSWORDS = ETC_DIR . 'passdora_passwords.ini.php';
 
-    const FILE_RESTORE_KEY = './etc/passdora_restore_key.ini.php';
+    const FILE_RESTORE_KEY = ETC_DIR . 'passdora_restore_key.ini.php';
 
     public static function getAllPasswords()
     {

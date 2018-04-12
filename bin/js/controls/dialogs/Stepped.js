@@ -39,6 +39,7 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Stepped', [
             'disablePreviousButton',
             'getNextButton',
             'getPreviousButton',
+            'getCloseButton',
             'getStepIndicators',
             'getSteps',
             'hideStepIndicators',
@@ -249,6 +250,11 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Stepped', [
         },
 
 
+        getCloseButton: function () {
+            return this.$Buttons.getElement('[name=close]');
+        },
+
+
         /**
          * Shows the next step. Returns if the next step was shown.
          *
@@ -357,6 +363,22 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Stepped', [
          */
         disablePreviousButton: function () {
             this.getPreviousButton().disable();
+        },
+
+
+        /**
+         * Resets the buttons text and icon to their default properties.
+         */
+        resetButtons: function () {
+            this.getNextButton().setAttributes({
+                textimage: 'fa fa-chevron-right',
+                text     : QUILocale.get(lg, 'restore.panel.button.next')
+            });
+
+            this.getPreviousButton().setAttributes({
+                textimage: 'fa fa-chevron-left',
+                text     : QUILocale.get(lg, 'restore.panel.button.previous')
+            });
         }
     });
 });

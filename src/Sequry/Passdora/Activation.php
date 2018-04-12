@@ -12,6 +12,7 @@ class Activation
     const TEMPLATE_INVALID_CODE = self::DIR_TEMPLATES . "invalid_code.tpl";
     const TEMPLATE_LOGIN = self::DIR_TEMPLATES . "login.tpl";
     const TEMPLATE_WIREFRAME = self::DIR_TEMPLATES . "wireframe.tpl";
+    const TEMPLATE_SETUP = self::DIR_TEMPLATES . "setup.tpl";
 
     const CONFIG_IS_ACTIVATED = "is_activated";
 
@@ -41,6 +42,9 @@ class Activation
                 break;
             case "/info":
                 $content = self::handleInfo();
+                break;
+            case "/setup":
+                $content = self::handleSetup();
                 break;
             case "/activate":
                 echo json_encode(self::handleActivate());
@@ -92,23 +96,44 @@ class Activation
     public static function handleActivate()
     {
         $returnCode = 4;
-        $text = "Invalid authentication code given.";
+        $text       = "Invalid authentication code given.";
 
-        if (\Sequry\Passdora\CodeUtil::isValid(\Sequry\Passdora\SessionUtil::getCode())) {
-            $script = CMS_DIR.'passdora_scripts/init_system.py';
+        if (CodeUtil::isValid(SessionUtil::getCode())) {
+            $Settings = json_decode(urldecode($_REQUEST['settings']), true);
+
+            $Config = QUI::getPackage('sequry/passdora')->getConfig();
+            $Config->setSection('setup', $Settings);
+            $Config->set('setup', 'is_requested', 1);
+            $Config->save();
+
+            $script = VAR_DIR . 'package/sequry/passdora/scripts/init_system.py';
             exec("python3 {$script} init", $text, $returnCode);
 
             if ($returnCode == 0) {
-                \Sequry\Passdora\Activation::activate();
+                Activation::activate();
             }
         }
 
         return array(
             'returnCode' => $returnCode,
-            'text'     => $text
+            'text'       => $text
         );
     }
 
+
+    public static function handleSetup()
+    {
+        $TemplateEngine = QUI::getTemplateManager()->getEngine();
+
+        if (!CodeUtil::isValid(QUI::getRequest()->get('code'))) {
+            return $TemplateEngine->fetch(self::TEMPLATE_INVALID_CODE);
+        }
+
+//        $TemplateEngine->assign('passwords', PasswordUtil::getAllPasswords());
+//        $TemplateEngine->assign('restore_key', PasswordUtil::getRestoreKey());
+
+        return $TemplateEngine->fetch(self::TEMPLATE_SETUP);
+    }
 
     public static function activate()
     {
