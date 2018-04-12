@@ -22,4 +22,12 @@
     >
         <locale group="sequry/passdora" var="menu.apps.passdora.update.title"/>
     </item>
+
+    <item parent="/apps/passdora/"
+          name="status"
+          icon="fa fa-heartbeat"
+          require="package/sequry/passdora/bin/js/controls/dialogs/Status"
+    >
+        <locale group="sequry/passdora" var="menu.apps.passdora.status.title"/>
+    </item>
 </menu>

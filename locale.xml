@@ -24,6 +24,10 @@
             <de>System-Aktualisierung</de>
             <en>System-Update</en>
         </locale>
+        <locale name="menu.apps.passdora.status.title">
+            <de>System-Status</de>
+            <en>System-Status</en>
+        </locale>
 
         <locale name="error.restore.decrypt">
             <de>Fehler beim Entschlüsseln der Backup-Datei: Ungültige Backup-Datei oder Restore-Key.</de>
@@ -152,6 +156,13 @@
             <de>Wenn Sie die System-Aktualisierung abbrechen wollen, klicken Sie auf den Button unten.</de>
             <en>If you want to abort the system-update, click the button below.</en>
         </locale>
+
+
+        <locale name="status.panel.title">
+            <de>System-Status</de>
+            <en>System-Status</en>
+        </locale>
+
 
         <locale name="error.file.type">
             <de>Ungültige Datei ausgewählt. Es wird eine [filetype] Datei benötigt.</de>
