@@ -53,7 +53,7 @@ define('package/sequry/passdora/bin/js/controls/dialogs/Status', [
 
             var IFrame = new Element('iframe', {
                 id : 'status',
-                src: 'http://passdora.local:81'
+                src: window.location.origin + ':81'
             });
 
             IFrame.addEvent('load', function () {
