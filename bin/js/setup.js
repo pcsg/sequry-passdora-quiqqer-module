@@ -28,6 +28,7 @@ var ButtonConfirm = document.getElementById('button-confirm');
 var submitSetup = function () {
     var settings = {
         hostname     : document.getElementById('hostname').value,
+        isSshEnabled : document.getElementById('ssh-enabled').checked,
         isDhcpEnabled: CheckboxDHCP.checked,
         ip           : document.getElementById('ip').value,
         subnetmask   : document.getElementById('subnetmask').value,
