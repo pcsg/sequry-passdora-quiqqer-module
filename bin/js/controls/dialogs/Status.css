@@ -1,5 +1,21 @@
-#status {
+.status-block-content table {
     width: 100%;
-    height: 100%;
-    border: none;
+    border-spacing: 0;
+}
+
+.status-block-content th {
+    padding: 10px;
+}
+
+.status-block-content td {
+    padding: 10px;
+}
+
+.status-block-content tbody tr:nth-of-type(odd) {
+    background-color: #eee;
+}
+
+.status-block-content tbody tr:hover {
+    background: #2f8fc6;
+    color: #fff;
 }

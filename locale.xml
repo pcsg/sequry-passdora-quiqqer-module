@@ -163,6 +163,123 @@
             <en>System-Status</en>
         </locale>
 
+        <!-- CPU -->
+        <locale name="status.model">
+            <de>Modell</de>
+            <en>Model</en>
+        </locale>
+        <locale name="status.num_cores">
+            <de>Anzahl Kerne</de>
+            <en>Cores</en>
+        </locale>
+        <locale name="status.frequency">
+            <de>Takt</de>
+            <en>Frequency</en>
+        </locale>
+        <locale name="status.cache">
+            <de>Cache</de>
+            <en>Cache</en>
+        </locale>
+        <locale name="status.bogomips">
+            <de>Bogomips</de>
+            <en>Bogomips</en>
+        </locale>
+        <locale name="status.temp">
+            <de>Temperatur</de>
+            <en>Temperature</en>
+        </locale>
+
+        <!-- Memory -->
+        <locale name="status.used">
+            <de>Verwendet</de>
+            <en>Used</en>
+        </locale>
+        <locale name="status.free">
+            <de>Frei</de>
+            <en>Free</en>
+        </locale>
+        <locale name="status.total">
+            <de>Gesamt</de>
+            <en>Total</en>
+        </locale>
+        <locale name="status.percent_used">
+            <de>Verwendet (%)</de>
+            <en>Used (%)</en>
+        </locale>
+
+        <!-- System -->
+        <locale name="status.hostname">
+            <de>Hostname</de>
+            <en>Hostname</en>
+        </locale>
+        <locale name="status.os">
+            <de>Betriebssystem</de>
+            <en>Operating System</en>
+        </locale>
+        <locale name="status.kernel">
+            <de>Kernel</de>
+            <en>Kernel</en>
+        </locale>
+        <locale name="status.uptime">
+            <de>Betriebszeit</de>
+            <en>Uptime</en>
+        </locale>
+        <locale name="status.last_boot">
+            <de>Letzter Neustart</de>
+            <en>Last Boot</en>
+        </locale>
+        <locale name="status.current_users">
+            <de>Aktuelle Nutzer</de>
+            <en>Current Users</en>
+        </locale>
+        <locale name="status.server_date">
+            <de><![CDATA[System Datum & Zeit]]></de>
+            <en><![CDATA[System Date & Time]]></en>
+        </locale>
+
+        <!-- Disk -->
+        <locale name="status.filesystem">
+            <de>Dateisystem</de>
+            <en>Filesystem</en>
+        </locale>
+        <locale name="status.mount">
+            <de>Einhängepunkt</de>
+            <en>Mounting-Point</en>
+        </locale>
+
+
+        <!-- Network -->
+        <locale name="status.interface">
+            <de>Schnittstelle</de>
+            <en>Interface</en>
+        </locale>
+        <locale name="status.ip">
+            <de>IP-Adresse</de>
+            <en>IP-Address</en>
+        </locale>
+        <locale name="status.received">
+            <de>Empfangen</de>
+            <en>Received</en>
+        </locale>
+        <locale name="status.sent">
+            <de>Gesendet</de>
+            <en>Sent</en>
+        </locale>
+
+        <!-- Services -->
+        <locale name="status.id">
+            <de>ID</de>
+            <en>ID</en>
+        </locale>
+        <locale name="status.name">
+            <de>Name</de>
+            <en>Name</en>
+        </locale>
+        <locale name="status.active">
+            <de>Aktiv</de>
+            <en>Active</en>
+        </locale>
+
 
         <locale name="error.file.type">
             <de>Ungültige Datei ausgewählt. Es wird eine [filetype] Datei benötigt.</de>
