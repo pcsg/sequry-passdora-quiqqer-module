@@ -26,5 +26,8 @@
 
 {$content}
 
+<footer>
+    © 2018 <a href="https://pcsg.de" target="_blank">PCSG</a> - implemented with <a href="https://quiqqer.de" target="_blank">QUIQQER</a>
+</footer>
 </body>
 </html>

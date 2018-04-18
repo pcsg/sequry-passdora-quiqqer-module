@@ -128,8 +128,15 @@ input {
 }
 
 footer {
+    width: 100%;
     background-color: #ececec;
-    padding: 30px 0;
+    padding-bottom: 15px;
+    color: #636363;
+}
+
+
+a {
+    color: #7F272A;
 }
 
 #buttons {
