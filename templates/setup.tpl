@@ -22,6 +22,20 @@
         </div>
 
 
+        <!-- SSH -->
+        <div class="pw-header">
+            SSH:
+        </div>
+        <div class="pw-data">
+            <div class="pw-data-row" id="row-dhcp">
+                <div class="pw-data-label">
+                    <label for="ssh-enabled" class="fa fa-power-off fa-lg"></label>
+                </div>
+                <input type="checkbox" id="ssh-enabled"/>
+            </div>
+        </div>
+
+
         <!-- DHCP -->
         <div class="pw-header">
             DHCP:

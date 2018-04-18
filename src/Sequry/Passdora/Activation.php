@@ -13,6 +13,7 @@ class Activation
     const TEMPLATE_LOGIN = self::DIR_TEMPLATES . "login.tpl";
     const TEMPLATE_WIREFRAME = self::DIR_TEMPLATES . "wireframe.tpl";
     const TEMPLATE_SETUP = self::DIR_TEMPLATES . "setup.tpl";
+    const TEMPLATE_LICENSE = self::DIR_TEMPLATES . "license.tpl";
 
     const CONFIG_IS_ACTIVATED = "is_activated";
 
@@ -45,6 +46,9 @@ class Activation
                 break;
             case "/setup":
                 $content = self::handleSetup();
+                break;
+            case "/license":
+                $content = self::handleLicense();
                 break;
             case "/activate":
                 echo json_encode(self::handleActivate());
@@ -134,6 +138,22 @@ class Activation
 
         return $TemplateEngine->fetch(self::TEMPLATE_SETUP);
     }
+
+
+    public static function handleLicense()
+    {
+        $TemplateEngine = QUI::getTemplateManager()->getEngine();
+
+        if (!CodeUtil::isValid(QUI::getRequest()->get('code'))) {
+            return $TemplateEngine->fetch(self::TEMPLATE_INVALID_CODE);
+        }
+
+//        $TemplateEngine->assign('passwords', PasswordUtil::getAllPasswords());
+//        $TemplateEngine->assign('restore_key', PasswordUtil::getRestoreKey());
+
+        return $TemplateEngine->fetch(self::TEMPLATE_LICENSE);
+    }
+
 
     public static function activate()
     {
