@@ -16,16 +16,14 @@
     </div>
 </div>
 
-<footer>
-    <div id="buttons">
-        <p>
-            <button id="button-confirm" class="primary">
-                <i class="fa fa-check"></i>
-                Accept
-            </button>
-        </p>
-    </div>
-</footer>
+<div id="buttons">
+    <p>
+        <button id="button-confirm" class="primary">
+            <i class="fa fa-check"></i>
+            Accept
+        </button>
+    </p>
+</div>
 
 
 <script type="text/javascript" src="/packages/sequry/passdora/bin/js/general.js"></script>

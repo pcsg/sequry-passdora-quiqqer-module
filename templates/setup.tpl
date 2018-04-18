@@ -109,16 +109,15 @@
     </div>
 </div>
 
-<footer>
-    <div id="buttons">
-        <p>
-            <button id="button-confirm" class="primary">
-                <i class="fa fa-check"></i>
-                Confirm
-            </button>
-        </p>
-    </div>
-</footer>
+
+<div id="buttons">
+    <p>
+        <button id="button-confirm" class="primary">
+            <i class="fa fa-check"></i>
+            Confirm
+        </button>
+    </p>
+</div>
 
 
 <script type="text/javascript" src="/packages/sequry/passdora/bin/js/general.js"></script>
