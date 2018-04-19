@@ -111,7 +111,7 @@ class Activation
             $Config->save();
 
             $script = VAR_DIR . 'package/sequry/passdora/scripts/init_system.py';
-            exec("python3 {$script} init", $text, $returnCode);
+            exec("python3 {$script}", $text, $returnCode);
 
             if ($returnCode == 0) {
                 Activation::activate();
