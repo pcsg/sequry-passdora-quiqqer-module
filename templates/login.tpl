@@ -1,3 +1,6 @@
+<div id="welcome">
+    <h1>Welcome to Passdora!</h1>
+</div>
 <h2>Please enter the code shown on the Passdora box:</h2>
 <form action='/license' method='get'>
     <div class='pw-data-row'>
