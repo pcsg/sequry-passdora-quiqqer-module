@@ -50,30 +50,22 @@
         </div>
 
         <!-- IP -->
-        <div class="pw-header" id="header-ip" style="display: none;">
-            IP:
-        </div>
-
         <div class="pw-data">
             <div class="pw-data-row" id="row-ip" style="display: none;">
                 <div class="pw-data-label">
                     <label for="ip" class="fa fa-sitemap fa-lg"></label>
                 </div>
-                <input type="text" id="ip" value="169.254.1.2"/>
+                <input type="text" id="ip" value="169.254.1.2" placeholder="IP"/>
             </div>
         </div>
 
         <!-- Subnetmask -->
-        <div class="pw-header" id="header-subnetmask" style="display: none;">
-            Subnetmask:
-        </div>
-
         <div class="pw-data">
             <div class="pw-data-row" id="row-subnetmask" style="display: none;">
                 <div class="pw-data-label">
                     <label for="subnetmask" class="fa fa-sitemap fa-lg"></label>
                 </div>
-                <input type="text" id="subnetmask" value="255.255.0.0"/>
+                <input type="text" id="subnetmask" value="255.255.0.0" placeholder="Subnetmask"/>
             </div>
         </div>
     </div>
@@ -96,14 +88,14 @@
                 <div class="pw-data-label">
                     <label for="wifi-ssid" class="fa fa-wifi fa-lg"></label>
                 </div>
-                <input type="text" id="wifi-ssid" value=""/>
+                <input type="text" id="wifi-ssid" placeholder="SSID" value=""/>
             </div>
 
             <div class="pw-data-row" id="row-wifi-password" style="display: none;">
                 <div class="pw-data-label">
                     <label for="wifi-password" class="fa fa-key fa-lg"></label>
                 </div>
-                <input type="text" id="wifi-password" value=""/>
+                <input type="text" id="wifi-password" placeholder="Password" value=""/>
             </div>
         </div>
     </div>

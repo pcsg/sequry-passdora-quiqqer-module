@@ -7,7 +7,7 @@
         <div class='pw-data-label'>
             <label for='code' class='fa fa-key fa-lg'></label>
         </div>
-        <input type='text' name='code'>
+        <input type='text' name='code' placeholder="Code">
     </div>
     <button type='submit'>Submit</button>
 </form>
