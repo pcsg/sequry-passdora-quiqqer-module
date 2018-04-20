@@ -1,7 +1,7 @@
 <div id="note">
     <i id="note-icon" class="fa fa-question fa-3x"></i>
     <div id="note-text">
-        Here you can set up your network configuration.
+        Here you can set up your system configuration.
     </div>
 </div>
 
