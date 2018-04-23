@@ -66,4 +66,11 @@ class Backup
         $path = realpath(self::DIRECTORY . $backup);
         File::send($path);
     }
+
+
+    public static function delete($backup)
+    {
+        $path = realpath(self::DIRECTORY . $backup);
+        File::unlink($path);
+    }
 }

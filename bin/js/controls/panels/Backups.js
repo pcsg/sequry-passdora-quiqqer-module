@@ -24,9 +24,14 @@ define('package/sequry/passdora/bin/js/controls/panels/Backups', [
         Type   : 'package/sequry/passdora/bin/js/controls/panels/Backups',
 
         Binds: [
-            '$onResize',
-            '$onCreate',
+            '$onButtonDeleteClick',
             '$onButtonDownloadClick',
+            '$onCreate',
+            '$onResize',
+            'deleteBackups',
+            'downloadBackups',
+            'getBackups',
+            'initialize',
             'loadBackupsIntoGrid'
         ],
 
@@ -66,6 +71,18 @@ define('package/sequry/passdora/bin/js/controls/panels/Backups', [
                 }
             });
 
+            this.addButton({
+                name     : 'delete',
+                textimage: 'fa fa-trash',
+                disabled : true,
+                events   : {
+                    onClick: this.$onButtonDeleteClick
+                },
+                styles: {
+                    float: 'right'
+                }
+            });
+
             // creates grid
             this.$Grid = new Grid(Content, {
                 columnModel      : [{
@@ -86,7 +103,7 @@ define('package/sequry/passdora/bin/js/controls/panels/Backups', [
                 multipleSelection: true,
                 pagination       : true,
                 showHeader       : true,
-                sortBy           : 'DESC',
+                sortBy           : 'ASC',
                 sortOn           : 'timestamp'
             });
 
@@ -103,6 +120,7 @@ define('package/sequry/passdora/bin/js/controls/panels/Backups', [
                 onClick: function (data) {
                     if (this.$Grid.getSelectedIndices().length > 0) {
                         this.getButtons('download').enable();
+                        this.getButtons('delete').enable();
                     }
                 }.bind(this)
             });
@@ -210,6 +228,44 @@ define('package/sequry/passdora/bin/js/controls/panels/Backups', [
                     },
                     'data-iframeid': iframeId
                 }).inject(document.body);
+            });
+        },
+
+
+        /**
+         * Called when the delete button is clicked.
+         */
+        $onButtonDeleteClick: function () {
+            if (!this.$Grid) {
+                return;
+            }
+
+            var data = this.$Grid.getSelectedData();
+
+            if (!data.length || data.length < 1) {
+                return;
+            }
+
+            data = data.map(function (value) {
+                return value.filename;
+            });
+
+            this.deleteBackups(data).then(function () {
+                this.$Grid.refresh();
+            }.bind(this));
+        },
+
+
+        deleteBackups: function (backups) {
+            console.log(backups);
+            return new Promise(function (resolve, reject) {
+                QUIAjax.get('package_sequry_passdora_ajax_backup_delete', function (result) {
+                    resolve(result);
+                }, {
+                    'package': 'sequry/passdora',
+                    onError  : reject,
+                    backups  : JSON.encode(backups)
+                });
             });
         }
     });
