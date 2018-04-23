@@ -16,7 +16,7 @@ class CodeUtil
 
     public static function showOnDisplay($code)
     {
-        $script = VAR_DIR . "package/sequry/passdora/scripts/init_system.py";
-        exec("python3 {$script} show_code {$code}");
+        $script = VAR_DIR . "package/sequry/passdora/scripts/show_code.py";
+        exec("python3 {$script} {$code}");
     }
 }

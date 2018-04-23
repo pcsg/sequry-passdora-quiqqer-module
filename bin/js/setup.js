@@ -2,9 +2,6 @@ var CheckboxDHCP = document.getElementById('dhcp-enabled');
 
 var toggleDHCP = function () {
     var isChecked = CheckboxDHCP.checked;
-    document.getElementById('header-ip').style.display = isChecked ? 'none' : 'block';
-    document.getElementById('header-subnetmask').style.display = isChecked ? 'none' : 'block';
-
     document.getElementById('row-ip').style.display = isChecked ? 'none' : 'flex';
     document.getElementById('row-subnetmask').style.display = isChecked ? 'none' : 'flex';
 };

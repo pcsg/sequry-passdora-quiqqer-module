@@ -16,6 +16,10 @@
             <de>Passdora</de>
             <en>Passdora</en>
         </locale>
+        <locale name="menu.apps.passdora.backups.title">
+            <de>Backups</de>
+            <en>Backups</en>
+        </locale>
         <locale name="menu.apps.passdora.restore.title">
             <de>System-Wiederherstellung</de>
             <en>System-Restore</en>
@@ -278,6 +282,26 @@
         <locale name="status.active">
             <de>Aktiv</de>
             <en>Active</en>
+        </locale>
+
+
+        <locale name="backups.panel.title">
+            <de>Backups</de>
+            <en>Backups</en>
+        </locale>
+
+        <locale name="backups.panel.button.download">
+            <de>Herunterladen</de>
+            <en>Download</en>
+        </locale>
+
+        <locale name="backups.panel.grid.column.date_formatted">
+            <de>Datum</de>
+            <en>Date</en>
+        </locale>
+        <locale name="backups.panel.grid.column.filename">
+            <de>Datei</de>
+            <en>File</en>
         </locale>
 
 

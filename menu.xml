@@ -30,4 +30,12 @@
     >
         <locale group="sequry/passdora" var="menu.apps.passdora.status.title"/>
     </item>
+
+    <item parent="/apps/passdora/"
+          name="backups"
+          icon="fa fa-hdd-o"
+          require="package/sequry/passdora/bin/js/controls/panels/Backups"
+    >
+        <locale group="sequry/passdora" var="menu.apps.passdora.backups.title"/>
+    </item>
 </menu>

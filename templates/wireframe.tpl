@@ -20,10 +20,6 @@
     <img id="logo" src="/packages/sequry/passdora/bin/img/Passdora_Logo.png">
 </header>
 
-<div id="welcome">
-    <h1>Welcome to Passdora!</h1>
-</div>
-
 {$content}
 
 <footer>
