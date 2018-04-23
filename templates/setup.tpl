@@ -95,7 +95,7 @@
                 <div class="pw-data-label">
                     <label for="wifi-password" class="fa fa-key fa-lg"></label>
                 </div>
-                <input type="text" id="wifi-password" placeholder="Password" value=""/>
+                <input type="password" id="wifi-password" placeholder="Password" value=""/>
             </div>
         </div>
     </div>
