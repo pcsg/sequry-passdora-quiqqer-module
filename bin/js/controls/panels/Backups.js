@@ -257,7 +257,6 @@ define('package/sequry/passdora/bin/js/controls/panels/Backups', [
 
 
         deleteBackups: function (backups) {
-            console.log(backups);
             return new Promise(function (resolve, reject) {
                 QUIAjax.get('package_sequry_passdora_ajax_backup_delete', function (result) {
                     resolve(result);
