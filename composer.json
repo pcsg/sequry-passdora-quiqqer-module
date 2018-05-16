@@ -17,7 +17,7 @@
         "url": "http://www.pcsg.de"
     },
     "require": {
-        
+        "sequry\/core": "dev-master"
     }
     ,"autoload": {
   "psr-4": {

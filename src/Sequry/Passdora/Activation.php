@@ -103,17 +103,17 @@ class Activation
         $text       = "Invalid authentication code given.";
 
         if (CodeUtil::isValid(SessionUtil::getCode())) {
-            $Settings = json_decode(urldecode($_REQUEST['settings']), true);
-
-            $Config = QUI::getPackage('sequry/passdora')->getConfig();
-            $Config->setSection('setup', $Settings);
-            $Config->set('setup', 'is_requested', 1);
-            $Config->save();
-
             $script = VAR_DIR . 'package/sequry/passdora/scripts/init_system.py';
             exec("python3 {$script}", $text, $returnCode);
 
             if ($returnCode == 0) {
+                $Settings = json_decode(urldecode($_REQUEST['settings']), true);
+
+                $Config = QUI::getPackage('sequry/passdora')->getConfig();
+                $Config->setSection('setup', $Settings);
+                $Config->set('setup', 'is_requested', 1);
+                $Config->save();
+
                 Activation::activate();
             }
         }
@@ -161,6 +161,8 @@ class Activation
         unlink(ETC_DIR . 'passdora_passwords.ini.php');
 
         // Set activated in config
-        QUI::getPackage('sequry/passdora')->getConfig()->set(self::CONFIG_IS_ACTIVATED, 1);
+        $Config = QUI::getPackage('sequry/passdora')->getConfig();
+        $Config->set('general', self::CONFIG_IS_ACTIVATED, 1);
+        $Config->save();
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Sequry\Passdora;
 
-use QUI\Config;
+use QUI\Exception;
 use QUI\Utils\System\File;
 
 /**
@@ -68,8 +68,18 @@ class Backup
     }
 
 
+    /**
+     * Deletes the backup with the given name.
+     *
+     * @param $backup
+     * @throws Exception
+     */
     public static function delete($backup)
     {
+        if (!\QUI::getUserBySession()->isSU()) {
+            throw new Exception("Only SU-user can delete backups.");
+        }
+
         $path = realpath(self::DIRECTORY . $backup);
         File::unlink($path);
     }

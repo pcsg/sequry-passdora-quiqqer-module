@@ -10,11 +10,12 @@ define('package/sequry/passdora/bin/js/controls/panels/Backups', [
     'qui/QUI',
     'qui/controls/desktop/Panel',
     'qui/controls/buttons/Button',
+    'qui/controls/windows/Confirm',
     'controls/grid/Grid',
     'Locale',
     'Ajax'
 
-], function (QUI, QUIPanel, QUIButton, Grid, QUILocale, QUIAjax) {
+], function (QUI, QUIPanel, QUIButton, QUIConfirm, Grid, QUILocale, QUIAjax) {
     "use strict";
 
     var lg = 'sequry/passdora';
@@ -257,15 +258,30 @@ define('package/sequry/passdora/bin/js/controls/panels/Backups', [
 
 
         deleteBackups: function (backups) {
-            console.log(backups);
             return new Promise(function (resolve, reject) {
-                QUIAjax.get('package_sequry_passdora_ajax_backup_delete', function (result) {
-                    resolve(result);
-                }, {
-                    'package': 'sequry/passdora',
-                    onError  : reject,
-                    backups  : JSON.encode(backups)
-                });
+                new QUIConfirm({
+                    icon       : 'fa fa-trash-o',
+                    texticon   : 'fa fa-trash-o',
+                    title      : QUILocale.get(lg, 'backups.panel.delete.confirm.title'),
+                    text       : QUILocale.get(lg, 'backups.panel.delete.confirm.text'),
+                    information: QUILocale.get(lg, 'backups.panel.delete.confirm.information', {
+                        ids: backups.join(', ')
+                    }),
+                    events     : {
+                        onSubmit: function (Win)
+                        {
+                            Win.Loader.show();
+                            QUIAjax.get('package_sequry_passdora_ajax_backup_delete', function (result) {
+                                Win.close();
+                                resolve(result);
+                            }, {
+                                'package': 'sequry/passdora',
+                                onError  : reject,
+                                backups  : JSON.encode(backups)
+                            });
+                        }
+                    }
+                }).open();
             });
         }
     });

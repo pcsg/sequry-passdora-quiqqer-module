@@ -304,6 +304,19 @@
             <en>File</en>
         </locale>
 
+        <locale name="backups.panel.delete.confirm.title">
+            <de><![CDATA[Backups löschen]]></de>
+            <en><![CDATA[Delete Backups]]></en>
+        </locale>
+        <locale name="backups.panel.delete.confirm.text">
+            <de><![CDATA[<p>Möchten Sie folgende Backups wirklich löschen?</p>]]></de>
+            <en><![CDATA[<p>Do you really want to delete the following backups?</p>]]></en>
+        </locale>
+        <locale name="backups.panel.delete.confirm.information">
+            <de><![CDATA[<p>Zu löschende Backups: <b>[ids]</b></p>]]></de>
+            <en><![CDATA[<p>Deleting the following backups: <b>[ids]</b></p>]]></en>
+        </locale>
+
 
         <locale name="error.file.type">
             <de>Ungültige Datei ausgewählt. Es wird eine [filetype] Datei benötigt.</de>
