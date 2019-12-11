@@ -1,29 +1,27 @@
 {
-    "name" : "sequry/passdora",
-    "type" : "quiqqer-module",
-    "description" : "Passdora module for QUIQQER",
-    "version" : "dev-dev",
-    "license" : "GPL-3.0+",
-    "authors" : [
+    "name": "sequry\/passdora",
+    "type": "quiqqer-module",
+    "description": "Passdora module for QUIQQER",
+    "license": "GPL-3.0+",
+    "authors": [
         {
             "name": "Jan Wennrich",
             "email": "jan@pcsg.de",
-            "homepage": "http://www.pcsg.de",
+            "homepage": "http:\/\/www.pcsg.de",
             "role": "Developer"
         }
     ],
-    "support" : {
+    "support": {
         "email": "support@pcsg.de",
-        "url": "http://www.pcsg.de"
+        "url": "http:\/\/www.pcsg.de"
     },
     "require": {
-        "sequry/setup-wizard": "dev-dev",
+        "sequry\/setup-wizard": "dev-dev",
         "sequry\/template": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sequry\\Passdora\\": "src\/Sequry\/Passdora"
+        }
     }
-    ,"autoload": {
-  "psr-4": {
-      "Sequry\\Passdora\\": "src/Sequry/Passdora"
-   }
-}
-
 }
